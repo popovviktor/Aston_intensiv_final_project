@@ -62,8 +62,8 @@ class DataModule() {
     }
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: RemoteDataSource,dao: AppDataBase):Repository{
-        return RepositoryImpl(remoteDataSource,dao.getCharactersDao())
+    fun provideRepository(remoteDataSource: RemoteDataSource):Repository{
+        return RepositoryImpl(remoteDataSource)
     }
     @Singleton
     @Provides

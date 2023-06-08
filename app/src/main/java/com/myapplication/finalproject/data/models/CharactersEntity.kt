@@ -3,9 +3,6 @@ package com.myapplication.finalproject.data.models
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-import com.myapplication.finalproject.domain.models.CharacterDomain
-import com.myapplication.finalproject.domain.models.InfoDomain
 
 @Entity(tableName = "page_characters")
 data class CharactersEntity(

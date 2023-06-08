@@ -8,7 +8,7 @@ import com.myapplication.finalproject.data.dao.CharactersDao
 import com.myapplication.finalproject.data.models.CharactersEntity
 import com.myapplication.finalproject.data.models.InfoEntity
 
-@Database(version = 1, entities = [CharactersEntity::class,InfoEntity::class])
+@Database(version = 1, entities = [CharactersEntity::class])
 abstract class AppDataBase:RoomDatabase() {
     abstract fun getCharactersDao():CharactersDao
 

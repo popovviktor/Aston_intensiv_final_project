@@ -16,17 +16,12 @@ class MainViewModel (private val getCharactersUseCase: GetCharactersUseCase):Vie
     fun getInfo(){
         viewModelScope.launch(Dispatchers.Main) {
             getCharactersUseCase.execute()?.let {
-                if (it!=null){
-                    liveCharsive.value = it
-                }
-
-                println(it)
-                if (it.results.size>0){
-                    println("asdasd!!!!!!!!!")
+                   if (it!=null){
+                       liveCharsive.value = it
+                       println("sdasd")
+                   }
                 }
             }
         }
-
     }
 
-   }

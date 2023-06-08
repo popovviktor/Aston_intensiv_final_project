@@ -23,10 +23,7 @@ class MainActivity : AppCompatActivity() {
        // vm.getMovie()
         //vm.withoutDAgger()
         vm._live.observe(this, Observer {
-            if (it!=null){
-                println("asfdasfasf")
-                println(it.results.size)
-            }
+            println("sssssss")
         })
     }
 }

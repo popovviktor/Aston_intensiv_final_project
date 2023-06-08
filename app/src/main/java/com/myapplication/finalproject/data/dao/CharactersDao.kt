@@ -11,8 +11,6 @@ interface CharactersDao {
 @Insert(entity = CharactersEntity::class)
 fun insert(charactersEntity: CharactersEntity)
 
-@Insert(entity = InfoEntity::class)
-fun insertInfo(infoEntity: InfoEntity)
 
 @Query("SELECT * FROM page_characters")
 fun getAllCharacters():List<CharactersTuple>
