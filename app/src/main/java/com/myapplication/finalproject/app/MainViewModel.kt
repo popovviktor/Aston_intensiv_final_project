@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myapplication.finalproject.domain.models.CharactersDomain
 import com.myapplication.finalproject.domain.usecase.GetCharactersUseCase
+import com.myapplication.finalproject.domain.usecase.SaveCharactersInDbUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel (private val getCharactersUseCase: GetCharactersUseCase):ViewModel(){
+class MainViewModel (private val getCharactersUseCase: GetCharactersUseCase,
+private val saveCharactersInDbUseCase: SaveCharactersInDbUseCase):ViewModel(){
     private val liveCharsive = MutableLiveData<CharactersDomain>()
     val _live:LiveData<CharactersDomain>
         get() = liveCharsive
@@ -23,5 +25,11 @@ class MainViewModel (private val getCharactersUseCase: GetCharactersUseCase):Vie
                 }
             }
         }
+    fun saveInDb(charactersDomain: CharactersDomain){
+        viewModelScope.launch(Dispatchers.IO){
+            saveCharactersInDbUseCase.execute(charactersDomain)
+        }
+
+    }
     }
 

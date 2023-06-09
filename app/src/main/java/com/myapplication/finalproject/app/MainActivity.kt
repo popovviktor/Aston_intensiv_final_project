@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         //vm.withoutDAgger()
         vm._live.observe(this, Observer {
             println("sssssss")
+            vm.saveInDb(vm._live.value!!)
         })
     }
 }

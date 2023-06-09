@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.myapplication.finalproject.data.dao.CharactersDao
-import com.myapplication.finalproject.data.models.CharactersEntity
-import com.myapplication.finalproject.data.models.InfoEntity
+import com.myapplication.finalproject.data.models.*
 
-@Database(version = 1, entities = [CharactersEntity::class])
+@Database(version = 1, entities = [CharacterData::class,InfoData::class,OriginData::class,LocationData::class], exportSchema = false)
+@TypeConverters(EpisodeConverter::class)
 abstract class AppDataBase:RoomDatabase() {
     abstract fun getCharactersDao():CharactersDao
 
