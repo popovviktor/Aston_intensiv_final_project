@@ -9,7 +9,6 @@ import com.myapplication.finalproject.data.dao.CharactersDao
 import com.myapplication.finalproject.data.models.*
 
 @Database(version = 1, entities = [CharacterData::class,InfoData::class,OriginData::class,LocationData::class], exportSchema = false)
-@TypeConverters(EpisodeConverter::class)
 abstract class AppDataBase:RoomDatabase() {
     abstract fun getCharactersDao():CharactersDao
 

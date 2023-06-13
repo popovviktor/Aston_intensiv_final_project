@@ -1,20 +1,16 @@
 package com.myapplication.finalproject.data.models
 
 import androidx.room.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
-import java.util.stream.Collectors
 import kotlin.collections.ArrayList
 
-data class CharactersData(
+data class CharactersEntity(
     var info    : InfoData?              = InfoData(),
     var results : ArrayList<CharacterData> = arrayListOf()
 )
 @Entity(tableName = "info_character_page")
 data class InfoData (
     @PrimaryKey
-    var id_info: Int? = null,
+    val id_info: Int? = null,
     var count : Int?    = null,
     var pages : Int?    = null,
     var next  : String? = null,
@@ -52,7 +48,7 @@ data class LocationData (
 @Entity(tableName = "table_character")
 data class CharacterData(
     var id_page: Int? = null,
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id       : Int?              = null,
     @ColumnInfo("name_character")var name     : String?           = null,
     var status   : String?           = null,
@@ -64,24 +60,10 @@ data class CharacterData(
     @Embedded
     var location : LocationData?     = LocationData(),
     var image    : String?           = null,
-    //@field:TypeConverters(EpisodeConverter::class)
-    var episode  : MutableList<String>? = null,
+    var episode  : String?           = null,
     var url      : String?           = null,
     var created  : String?           = null
-)
-data class Episodes(
-    var episodes:ArrayList<String>?
-)
-class EpisodeConverter {
-    @TypeConverter
-    fun fromArrayList(episode:MutableList<String?>?):String{
-        val gson = Gson()
-        return gson.toJson(episode)
-    }
-    @TypeConverters
-    fun toString(data:String):MutableList<String>{
-        val listType:Type = object :TypeToken<ArrayList<String?>?>() {}.type
-        return Gson().fromJson(data,listType)
-    }
+){
 }
+
 

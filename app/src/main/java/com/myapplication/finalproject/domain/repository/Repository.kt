@@ -5,4 +5,5 @@ import com.myapplication.finalproject.domain.models.CharactersDomain
 interface Repository {
     suspend fun getDataCharacters():CharactersDomain?
     suspend fun saveDataCharactersInDb(charactersDomain: CharactersDomain)
+    suspend fun getDataCharactersFromDB():CharactersDomain?
 }

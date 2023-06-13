@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CharactersDomain (
     @SerializedName("info"    ) var info    : Info?              = null,
-    @SerializedName("results" ) var results : ArrayList<Character>? = null
+    @SerializedName("results" ) var results : ArrayList<CharacterDomain>? = null
 )
 data class Info (
     @SerializedName("count" ) var count : Int?    = null,
@@ -20,7 +20,7 @@ data class Location (
     @SerializedName("name" ) var name : String? = null,
     @SerializedName("url"  ) var url  : String? = null
 )
-data class Character(
+data class CharacterDomain(
     @SerializedName("id"       ) var id       : Int?              = null,
     @SerializedName("name"     ) var name     : String?           = null,
     @SerializedName("status"   ) var status   : String?           = null,
