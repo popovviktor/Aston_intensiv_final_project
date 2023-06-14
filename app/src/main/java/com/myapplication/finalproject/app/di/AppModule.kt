@@ -17,10 +17,7 @@ class AppModule() {
     //fun providesContext(): Context {
     //    return context
     //}
-    @Provides
-    fun provideAppDataBase(context: Context): AppDataBase {
-        return AppDataBase.getAppDataBase(context.applicationContext)
-    }
+
     @Singleton
     @Provides
     fun providesViewModel(getCharactersUseCaseFactory :GetCharactersUseCase,

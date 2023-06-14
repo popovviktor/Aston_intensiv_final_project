@@ -24,6 +24,10 @@ import javax.inject.Singleton
 
 @Module
 class DataModule() {
+    @Provides
+    fun provideAppDataBase(context: Context): AppDataBase {
+        return AppDataBase.getAppDataBase(context.applicationContext)
+    }
     @Singleton
     @Provides
     fun provideGson():Gson{
