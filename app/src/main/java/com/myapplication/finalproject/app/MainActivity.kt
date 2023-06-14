@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        (applicationContext as App).appComponent.inject(this)
+        (applicationContext as App).appComponent().inject(this)
         vm = ViewModelProvider(this,mvFactory)
             .get(MainViewModel::class.java)
         vm.getInfo()
