@@ -45,6 +45,7 @@ private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase):ViewModel(
                     println("22222")
                     println("2222")
                     println(it)
+                    liveCharsive.value = it
                 }
             }
         }

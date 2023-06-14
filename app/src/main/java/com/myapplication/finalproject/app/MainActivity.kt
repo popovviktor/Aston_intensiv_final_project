@@ -47,11 +47,16 @@ class MainActivity : AppCompatActivity() {
                         println("верхний порог")
                         val progressBar = findViewById<ProgressBar>(R.id.progressStart)
                         progressBar.visibility = View.VISIBLE
+                        val progressBar2 = findViewById<ProgressBar>(R.id.progressEnd)
+                        progressBar2.visibility=View.GONE
                     }
                     if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE){
                         println("нижний порог")
                         val progressBar = findViewById<ProgressBar>(R.id.progressEnd)
                         progressBar.visibility=View.VISIBLE
+                        val progressBar2 = findViewById<ProgressBar>(R.id.progressStart)
+                        progressBar2.visibility = View.GONE
+                        vm.loadNewPage(vm._live.value!!.info?.next.toString())
                     }
                 }
             }
