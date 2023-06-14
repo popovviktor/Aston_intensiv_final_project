@@ -2,6 +2,7 @@ package com.myapplication.finalproject.app.di
 
 import com.myapplication.finalproject.domain.repository.Repository
 import com.myapplication.finalproject.domain.usecase.GetCharactersFromDbUseCase
+import com.myapplication.finalproject.domain.usecase.GetCharactersNewPageUseCase
 import com.myapplication.finalproject.domain.usecase.GetCharactersUseCase
 import com.myapplication.finalproject.domain.usecase.SaveCharactersInDbUseCase
 import dagger.Module
@@ -24,6 +25,11 @@ class DomainModule {
     @Provides
     fun provideGetCharactersFromDb(repository: Repository):GetCharactersFromDbUseCase{
         return GetCharactersFromDbUseCase(repository = repository)
+    }
+    @Singleton
+    @Provides
+    fun provideGetCharactersNewPage(repository: Repository):GetCharactersNewPageUseCase{
+        return GetCharactersNewPageUseCase(repository = repository)
     }
 
 }

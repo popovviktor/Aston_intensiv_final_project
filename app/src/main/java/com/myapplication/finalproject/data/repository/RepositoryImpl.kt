@@ -18,7 +18,6 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
     override suspend fun getDataCharacters(): CharactersDomain? {
         var characters:CharactersDomain? = null
         try {
-            remoteDataSource.getCharacters()
             characters = remoteDataSource.getCharacters().body()
         }catch (ex:java.lang.Exception){
             println(ex.message)
@@ -52,5 +51,17 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
         results = data as ArrayList<CharacterData>
         ))
         return charactersDomain
+    }
+
+    override suspend fun getNewPageCharacters(urlNewPage: String): CharactersDomain? {
+        var characters:CharactersDomain? = null
+        try {
+            val newPage = remoteDataSource.getCharactersNewPage(urlNewPage)
+            characters = newPage.body()
+        }catch (ex:java.lang.Exception){}
+        println(characters)
+        println("newpage")
+        return characters
+
     }
 }

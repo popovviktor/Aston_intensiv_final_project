@@ -6,4 +6,5 @@ interface Repository {
     suspend fun getDataCharacters():CharactersDomain?
     suspend fun saveDataCharactersInDb(charactersDomain: CharactersDomain)
     suspend fun getDataCharactersFromDB():CharactersDomain?
+    suspend fun getNewPageCharacters(urlNewPage:String):CharactersDomain?
 }
