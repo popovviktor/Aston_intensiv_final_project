@@ -1,10 +1,10 @@
 package com.myapplication.finalproject.app.di
 
-import com.myapplication.finalproject.domain.repository.Repository
-import com.myapplication.finalproject.domain.usecase.GetCharactersFromDbUseCase
-import com.myapplication.finalproject.domain.usecase.GetCharactersNewPageUseCase
-import com.myapplication.finalproject.domain.usecase.GetCharactersUseCase
-import com.myapplication.finalproject.domain.usecase.SaveCharactersInDbUseCase
+import com.myapplication.finalproject.featureChararcters.domain.repository.Repository
+import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromDbUseCase
+import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
+import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersUseCase
+import com.myapplication.finalproject.featureChararcters.domain.usecase.SaveCharactersInDbUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,22 +13,22 @@ import javax.inject.Singleton
 class DomainModule {
     @Singleton
     @Provides
-    fun providesGetCharactersUseCase(repository: Repository):GetCharactersUseCase{
+    fun providesGetCharactersUseCase(repository: Repository): GetCharactersUseCase {
         return GetCharactersUseCase(repository = repository)
     }
     @Singleton
     @Provides
-    fun providesSaveChararctersInDb(repository: Repository):SaveCharactersInDbUseCase{
+    fun providesSaveChararctersInDb(repository: Repository): SaveCharactersInDbUseCase {
         return SaveCharactersInDbUseCase(repository = repository)
     }
     @Singleton
     @Provides
-    fun provideGetCharactersFromDb(repository: Repository):GetCharactersFromDbUseCase{
+    fun provideGetCharactersFromDb(repository: Repository): GetCharactersFromDbUseCase {
         return GetCharactersFromDbUseCase(repository = repository)
     }
     @Singleton
     @Provides
-    fun provideGetCharactersNewPage(repository: Repository):GetCharactersNewPageUseCase{
+    fun provideGetCharactersNewPage(repository: Repository): GetCharactersNewPageUseCase {
         return GetCharactersNewPageUseCase(repository = repository)
     }
 

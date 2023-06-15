@@ -1,6 +1,6 @@
 package com.myapplication.finalproject.featureLocation.api
 
-import com.myapplication.finalproject.domain.models.CharactersDomain
+import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
 import com.myapplication.finalproject.featureLocation.models.Locations
 import retrofit2.Response
 import retrofit2.http.GET

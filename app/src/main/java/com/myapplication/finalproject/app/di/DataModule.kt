@@ -6,12 +6,12 @@ import androidx.room.Dao
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.myapplication.finalproject.data.AppDb.AppDataBase
-import com.myapplication.finalproject.data.api.ApiService
-import com.myapplication.finalproject.data.api.RemoteDataSource
-import com.myapplication.finalproject.data.dao.CharactersDao
-import com.myapplication.finalproject.data.repository.RepositoryImpl
-import com.myapplication.finalproject.domain.repository.Repository
+import com.myapplication.finalproject.featureChararcters.data.AppDb.AppDataBase
+import com.myapplication.finalproject.featureChararcters.data.api.ApiService
+import com.myapplication.finalproject.featureChararcters.data.api.RemoteDataSource
+import com.myapplication.finalproject.featureChararcters.data.dao.CharactersDao
+import com.myapplication.finalproject.featureChararcters.data.repository.RepositoryImpl
+import com.myapplication.finalproject.featureChararcters.domain.repository.Repository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -61,17 +61,17 @@ class DataModule() {
     }
     @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit):ApiService{
+    fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: RemoteDataSource,dao:AppDataBase):Repository{
+    fun provideRepository(remoteDataSource: RemoteDataSource, dao: AppDataBase): Repository {
         return RepositoryImpl(remoteDataSource,dao.getCharactersDao())
     }
     @Singleton
     @Provides
-    fun provideRemoteDataSource(apiService: ApiService):RemoteDataSource{
+    fun provideRemoteDataSource(apiService: ApiService): RemoteDataSource {
         return RemoteDataSource(apiService)
     }
 
