@@ -1,14 +1,16 @@
 package com.myapplication.finalproject.app.di
 
 import android.content.Context
+import com.example.daggerlecture2023.core.di.ViewModelFactoryModule
 import com.myapplication.finalproject.app.MainActivity
+import com.myapplication.finalproject.app.core.base.di.CharactersViewModelModule
 import com.myapplication.finalproject.featureLocation.di.NetworkProvider
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class,DomainModule::class,DataModule::class])
+@Component(modules = [ViewModelFactoryModule::class,CharactersViewModelModule::class,AppModule::class,DomainModule::class,DataModule::class])
 interface AppComponent: NetworkProvider {
     fun inject(mainActivity: MainActivity)
     @Component.Factory

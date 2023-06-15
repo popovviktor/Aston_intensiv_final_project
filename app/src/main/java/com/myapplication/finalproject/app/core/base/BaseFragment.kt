@@ -22,7 +22,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     private var _viewModel: VM? = null
     protected val viewModel get() = requireNotNull(_viewModel) { "ViewModel isn't init" }
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
