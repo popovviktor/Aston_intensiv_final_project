@@ -8,14 +8,18 @@ import com.myapplication.finalproject.R
 import com.myapplication.finalproject.databinding.ItemForChatacterBinding
 
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
+import com.squareup.picasso.Picasso
 
 class AdapterForCharacters:RecyclerView.Adapter<AdapterForCharacters.ViewHolderForCharacters>() {
     val list = ArrayList<CharacterDomain>()
     class ViewHolderForCharacters(item:View):RecyclerView.ViewHolder(item) {
         private val binding = ItemForChatacterBinding.bind(item)
             fun bind(item: CharacterDomain){
-                binding.tvName.text = item.name.toString()
-                binding.textView6.text = item.species.toString()
+                binding.TvName.text = item.name.toString()
+                binding.TvSpecies.text = item.species.toString()
+                binding.TvStatusItem.text = item.status.toString()
+                binding.tvItemGender.text = item.gender.toString()
+                Picasso.get().load(item.image).into(binding.imViewItemChatacter);
             }
     }
 
