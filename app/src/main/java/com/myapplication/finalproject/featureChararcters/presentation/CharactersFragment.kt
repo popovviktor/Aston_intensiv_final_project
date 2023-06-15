@@ -1,19 +1,14 @@
 package com.myapplication.finalproject.featureChararcters.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
 import com.myapplication.finalproject.app.core.base.BaseFragment
-import com.myapplication.finalproject.app.di.AppComponent
+import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 
 
@@ -64,7 +59,7 @@ CharactersViewModel::class.java
     }
 
     override fun initDaggerComponent(function: () -> Unit) {
-        AppComponent.init(requireActivity()).inject(this)
+        CharactersComponent.init(requireActivity()).inject(this)
     }
 
 }

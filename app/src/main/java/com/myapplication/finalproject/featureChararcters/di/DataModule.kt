@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.app.di
+package com.myapplication.finalproject.featureChararcters.di
 
 import android.app.Application
 import android.content.Context

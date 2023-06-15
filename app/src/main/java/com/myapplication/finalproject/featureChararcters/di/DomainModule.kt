@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.app.di
+package com.myapplication.finalproject.featureChararcters.di
 
 import com.myapplication.finalproject.featureChararcters.domain.repository.Repository
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromDbUseCase
