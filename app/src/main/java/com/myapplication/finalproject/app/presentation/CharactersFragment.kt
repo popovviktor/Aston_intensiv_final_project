@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.app.adapter.AdapterForCharacters
 import com.myapplication.finalproject.app.core.base.BaseFragment
+import com.myapplication.finalproject.app.di.AppComponent
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 
 
@@ -60,6 +61,10 @@ CharactersViewModel::class.java
             }
             rv.addOnScrollListener(listenerForRv)
         })
+    }
+
+    override fun initDaggerComponent(function: () -> Unit) {
+        AppComponent.init(requireActivity()).inject(this)
     }
 
 }

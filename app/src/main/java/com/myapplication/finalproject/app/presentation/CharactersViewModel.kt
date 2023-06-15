@@ -11,8 +11,9 @@ import com.myapplication.finalproject.domain.usecase.GetCharactersUseCase
 import com.myapplication.finalproject.domain.usecase.SaveCharactersInDbUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharactersViewModel (private val getCharactersUseCase: GetCharactersUseCase,
+class CharactersViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase,
                            private val saveCharactersInDbUseCase: SaveCharactersInDbUseCase,
                            private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
                            private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase):ViewModel(){

@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.daggerlecture2023.core.di.ViewModelFactoryModule
 import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.base.di.CharactersViewModelModule
+import com.myapplication.finalproject.app.presentation.CharactersFragment
 import com.myapplication.finalproject.featureLocation.di.NetworkProvider
 import dagger.BindsInstance
 import dagger.Component
@@ -11,8 +12,9 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [ViewModelFactoryModule::class,CharactersViewModelModule::class,AppModule::class,DomainModule::class,DataModule::class])
-interface AppComponent: NetworkProvider {
+interface AppComponent {
     fun inject(mainActivity: MainActivity)
+    fun inject(charactersFragment: CharactersFragment)
     @Component.Factory
     interface Factory{
         fun create(@BindsInstance context: Context):AppComponent

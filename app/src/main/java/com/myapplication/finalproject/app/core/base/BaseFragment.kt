@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.myapplication.finalproject.app.app.App
 import com.myapplication.finalproject.featureLocation.di.DependenciesProvider
 import javax.inject.Inject
 
@@ -27,6 +28,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        initDaggerComponent(){
+            (requireActivity().applicationContext as App).appComponent()
+        }
         _viewModel = ViewModelProvider(this, viewModelFactory)[viewModelClass]
     }
 
@@ -36,4 +40,5 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     }
 
     abstract fun createBinding(): VB
+    abstract fun initDaggerComponent(function: () -> Unit)
 }
