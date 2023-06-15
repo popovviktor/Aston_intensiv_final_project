@@ -26,6 +26,7 @@ abstract class BaseBottomSheet<VB : ViewBinding>: BottomSheetDialogFragment() {
             val bottomSheet = it.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
             val behavior = BottomSheetBehavior.from(bottomSheet)
             behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            //it.setCancelable(false)
         }
     }
     abstract fun createBinding(): VB
