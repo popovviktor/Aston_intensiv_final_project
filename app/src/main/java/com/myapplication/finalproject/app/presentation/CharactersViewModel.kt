@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.app
+package com.myapplication.finalproject.app.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,10 +12,10 @@ import com.myapplication.finalproject.domain.usecase.SaveCharactersInDbUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel (private val getCharactersUseCase: GetCharactersUseCase,
-private val saveCharactersInDbUseCase: SaveCharactersInDbUseCase,
-private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
-private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase):ViewModel(){
+class CharactersViewModel (private val getCharactersUseCase: GetCharactersUseCase,
+                           private val saveCharactersInDbUseCase: SaveCharactersInDbUseCase,
+                           private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
+                           private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase):ViewModel(){
     private val liveCharsive = MutableLiveData<CharactersDomain>()
     val _live:LiveData<CharactersDomain>
         get() = liveCharsive

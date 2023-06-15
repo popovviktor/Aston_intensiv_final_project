@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.featureLocation
+package com.myapplication.finalproject.featureLocation.di
 
 import com.myapplication.finalproject.featureLocation.api.ApiLocation
 import dagger.Module

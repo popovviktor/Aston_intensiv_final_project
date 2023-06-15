@@ -1,3 +1,0 @@
-package com.myapplication.finalproject.featureLocation
-
-interface DependenciesProvider : NetworkProvider

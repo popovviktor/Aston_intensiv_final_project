@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.featureLocation
+package com.myapplication.finalproject.featureLocation.di
 
 import retrofit2.Retrofit
 

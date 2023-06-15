@@ -3,23 +3,22 @@ package com.myapplication.finalproject.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.app.adapter.AdapterForCharacters
 import com.myapplication.finalproject.app.app.App
+import com.myapplication.finalproject.app.presentation.CharactersViewModel
+import com.myapplication.finalproject.app.presentation.MainViewModelFactory
 import javax.inject.Inject
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     private val adapter = AdapterForCharacters()
-    lateinit var vm: MainViewModel
+    lateinit var vm: CharactersViewModel
     lateinit var timerNotChangedEditPath: CountDownTimer
     @Inject
     lateinit var mvFactory: MainViewModelFactory
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         (applicationContext as App).appComponent().inject(this)
         vm = ViewModelProvider(this,mvFactory)
-            .get(MainViewModel::class.java)
+            .get(CharactersViewModel::class.java)
         vm.getInfo()
        // vm.getMovie()
         //vm.withoutDAgger()

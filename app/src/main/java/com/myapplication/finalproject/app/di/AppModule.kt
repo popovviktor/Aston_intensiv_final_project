@@ -1,8 +1,6 @@
 package com.myapplication.finalproject.app.di
 
-import android.content.Context
-import com.myapplication.finalproject.app.MainViewModelFactory
-import com.myapplication.finalproject.data.AppDb.AppDataBase
+import com.myapplication.finalproject.app.presentation.MainViewModelFactory
 import com.myapplication.finalproject.domain.usecase.GetCharactersFromDbUseCase
 import com.myapplication.finalproject.domain.usecase.GetCharactersNewPageUseCase
 import com.myapplication.finalproject.domain.usecase.GetCharactersUseCase
@@ -23,7 +21,7 @@ class AppModule() {
     fun providesViewModel(getCharactersUseCaseFactory :GetCharactersUseCase,
     saveCharactersInDbUseCase: SaveCharactersInDbUseCase,
     getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
-    getCharactersNewPageUseCase: GetCharactersNewPageUseCase):MainViewModelFactory{
+    getCharactersNewPageUseCase: GetCharactersNewPageUseCase): MainViewModelFactory {
         return MainViewModelFactory(getCharactersUseCaseFactory,saveCharactersInDbUseCase,
         getCharactersFromDbUseCase,getCharactersNewPageUseCase)
     }

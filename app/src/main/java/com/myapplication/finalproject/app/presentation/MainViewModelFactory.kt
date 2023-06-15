@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.app
+package com.myapplication.finalproject.app.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +14,7 @@ private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
 private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase):ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(getCharactersUseCase = getCharactersUseCase,saveCharactersInDbUseCase = saveCharactersInDbUseCase,
+        return CharactersViewModel(getCharactersUseCase = getCharactersUseCase,saveCharactersInDbUseCase = saveCharactersInDbUseCase,
         getCharactersFromDbUseCase = getCharactersFromDbUseCase,getCharactersNewPageUseCase) as T
     }
 }
