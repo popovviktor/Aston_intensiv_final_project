@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.app.core.base
+package com.myapplication.finalproject.app.core.base.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.myapplication.finalproject.app.app.App
-import com.myapplication.finalproject.featureLocation.di.DependenciesProvider
 import javax.inject.Inject
 
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(

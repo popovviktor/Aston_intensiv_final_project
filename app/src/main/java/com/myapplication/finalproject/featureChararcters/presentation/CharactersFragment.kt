@@ -7,12 +7,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
-import com.myapplication.finalproject.app.core.base.BaseFragment
+import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 
 
-class CharactersFragment :BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
+class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
 CharactersViewModel::class.java
 ){
     override fun createBinding(): FragmentCharactersBinding {
@@ -43,6 +43,7 @@ CharactersViewModel::class.java
                         progressBar.visibility = View.VISIBLE
                         val progressBar2 = binding.progressEnd
                         progressBar2.visibility=View.GONE
+                        vm.loadNewPage(vm._live.value!!.info?.prev.toString())
                     }
                     if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE){
                         println("нижний порог")
@@ -54,7 +55,17 @@ CharactersViewModel::class.java
                     }
                 }
             }
+            vm.isLoading.observe(requireActivity(), Observer {
+                if (it == false){
+                    binding.progressEnd.visibility = View.GONE
+                    binding.progressStart.visibility = View.GONE
+                }
+            })
             rv.addOnScrollListener(listenerForRv)
+            binding.btnFilter.setOnClickListener {
+                println("ssss")
+                CharactersBottomSheetForFilter.show(requireActivity())
+            }
         })
     }
 

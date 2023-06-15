@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.app.core.base.di
+package com.myapplication.finalproject.app.core.di
 
 import androidx.lifecycle.ViewModel
 import com.example.daggerlecture2023.core.di.ViewModelKey

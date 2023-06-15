@@ -18,6 +18,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                                               private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
                                               private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase
 ):ViewModel(){
+    val isLoading:MutableLiveData<Boolean> = MutableLiveData(false)
     private val liveCharsive = MutableLiveData<CharactersDomain>()
     val _live:LiveData<CharactersDomain>
         get() = liveCharsive
@@ -40,14 +41,18 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
             }
         }
     fun loadNewPage(url:String){
-        viewModelScope.launch(Dispatchers.Main) {
-            getCharactersNewPageUseCase.execute(url)?.let {
-                if (it!=null){
-                    println("asdasd")
-                    println("22222")
-                    println("2222")
-                    println(it)
-                    liveCharsive.value = it
+        if (isLoading.value==false){
+            isLoading.value = true
+            viewModelScope.launch(Dispatchers.Main) {
+                getCharactersNewPageUseCase.execute(url).let {
+                    isLoading.value = false
+                    if (it!=null){
+                        println("asdasd")
+                        println("22222")
+                        println("2222")
+                        println(it)
+                        liveCharsive.value = it
+                    }
                 }
             }
         }
