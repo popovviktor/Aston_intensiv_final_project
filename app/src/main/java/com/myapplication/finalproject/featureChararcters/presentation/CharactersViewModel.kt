@@ -11,8 +11,11 @@ import com.myapplication.finalproject.featureChararcters.domain.usecase.GetChara
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.SaveCharactersInDbUseCase
-import com.myapplication.finalproject.featureChararcters.presentation.model.LoadingPage
+import com.myapplication.finalproject.featureChararcters.presentation.model.LoadingPrev
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,9 +24,10 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                                               private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
                                               private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase
 ):ViewModel(){
-    private val isLoading = MutableLiveData<LoadingPage>()
-        val _isLoading:LiveData<LoadingPage>
-            get() = isLoading
+    private val _stateLoadingPrev= MutableStateFlow<LoadingPrev>(LoadingPrev(null,null))
+        val stateLoadingPrev:StateFlow<LoadingPrev> = _stateLoadingPrev.asStateFlow()
+    private val _stateLoadingNext = MutableStateFlow<Boolean>(false)
+        val stateLoadingNext:StateFlow<Boolean> = _stateLoadingNext.asStateFlow()
     private val liveCharsive = MutableLiveData<CharactersDomain>()
     val _live:LiveData<CharactersDomain>
         get() = liveCharsive
@@ -36,6 +40,13 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
     init {
 
     }
+    fun setStateLoadNextEnd(){
+        _stateLoadingNext.value = false
+    }
+    fun setStateLoadPrevEnd(){
+        _stateLoadingPrev.value = LoadingPrev(null,null)
+    }
+
     fun getInfo(){
         viewModelScope.launch(Dispatchers.Main) {
             getCharactersUseCase.execute().let {
@@ -45,7 +56,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                        saveInDb(it)
                        println("1sdasd1")
                    }else{
-                       println("1sssssss1")
+                       println("нет интернета")
                        getPageFromDB()
 
                    }
@@ -61,29 +72,47 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                 liveCharsive.value = it
                 characterPAge.value = it.results!!
             }else{
-                println("dont load in cache")
+                println("нет сохранненного кеша")
             }
         }
     }
-    fun loadNewPage(url:String){
+    fun loadPrevPage(url:String){
         if (url==null||url=="null"){
             println("дошли до конца списка")
-            isLoading.postValue(LoadingPage(false,false))
+            _stateLoadingPrev.value = LoadingPrev(true,0)
         }else{
             viewModelScope.launch(Dispatchers.IO) {
+                    getCharactersNewPageUseCase.execute(url).let {
+                        if (it!=null){
+                            liveCharsive.value?.info?.prev = it.info?.prev
+                            val def = characterPAge.value
+                            characterPAge.value?.addAll(0,it.results!!)
+                            liveCharsive.value?.results = characterPAge.value
+                            //(it.results!!)
+                            _stateLoadingPrev.value = LoadingPrev(true,it.results!!.size)
+                            saveInDb(it)
+                        }
+                        else{
+                            println("eror internet")
+                        }
 
-                if (isLoading.value?.IsLoadingPrevPage!=true || isLoading.value?.IsLoadingNewPage!=true){
-                   isLoading.postValue(LoadingPage(true,true))
-
+                    }
+                }
+        }
+    }
+    fun loadNextPage(url:String){
+        if (url==null||url=="null"){
+            println("дошли до конца списка")
+            _stateLoadingNext.value = true
+        }else{
+            viewModelScope.launch(Dispatchers.IO) {
                     getCharactersNewPageUseCase.execute(url).let {
                     println("end loading")
-                    isLoading.postValue(LoadingPage(false,false))
                     if (it!=null){
-                        println("asdasd")
-                        println(it.results?.size!!)
                         liveCharsive.value?.info?.next = it.info?.next
                         println(liveCharsive.value?.info?.next)
                         characterPAge.value?.addAll(it.results!!)
+                        _stateLoadingNext.value = true
                         saveInDb(it)
                     }
                     else{
@@ -91,7 +120,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                     }
 
                 }
-            }}
+            }
        }
     }
     fun saveInDb(charactersDomain: CharactersDomain){

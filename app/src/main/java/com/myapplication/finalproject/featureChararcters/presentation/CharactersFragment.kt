@@ -2,7 +2,10 @@ package com.myapplication.finalproject.featureChararcters.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
@@ -11,8 +14,11 @@ import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
-
+private const val LANDSCAPE_ORIENTATION = 2
 private val adapter = AdapterForCharacters()
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
 CharactersViewModel::class.java
@@ -23,15 +29,11 @@ CharactersViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("this text once")
         if (savedInstanceState==null){
-            println("savedIntance")
             getLoadDefaultPageAndFollowResult()
         }else{
-            println("get def load page")
             defaultSettingForRecyclerCharacters()
         }
-
     }
 
     override fun initDaggerComponent(function: () -> Unit) {
@@ -47,35 +49,47 @@ CharactersViewModel::class.java
         })
     }
     fun defaultSettingForRecyclerCharacters(){
-        binding.rvForCharacters.layoutManager = GridLayoutManager(activity,2, RecyclerView.VERTICAL,false)
+        setLayoutManagerInRecycler()
         binding.rvForCharacters.adapter = adapter
         addBottomSheetForFilter()
         followVisibleEndProgressBarLoad()
-        setListenerForRecyclerCharacters()
+        setScrollListenerForRecyclerCharacters()
+    }
+    fun setLayoutManagerInRecycler(){
+        val orientation = requireActivity().resources.configuration.orientation
+        var spanCountForGridLayout = 2
+        if (orientation== LANDSCAPE_ORIENTATION){
+            spanCountForGridLayout = 3
+        }
+        binding.rvForCharacters.layoutManager = GridLayoutManager(activity,
+            spanCountForGridLayout, RecyclerView.VERTICAL,false)
     }
     fun setListInAdapter(characters: ArrayList<CharacterDomain>){
         adapter.list= characters
     }
-    fun setListenerForRecyclerCharacters(){
+    fun setScrollListenerForRecyclerCharacters(){
         val listener = object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(-1)&&newState == RecyclerView.SCROLL_STATE_IDLE){
-                    println("верхний порог")
-                    binding.progressStart.visibility = View.VISIBLE
-                    binding.progressEnd.visibility=View.GONE
-                    viewModel.loadNewPage(viewModel._live.value!!.info?.prev.toString())
+                if (!recyclerView.canScrollVertically(-1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
+                    binding.progressNext.visibility==View.GONE && binding.progressPrev.visibility==View.GONE){
+                    loadPrevPageAndProgressVisible()
                 }
-                if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE){
-                    println("нижний порог")
-                    binding.progressEnd.visibility=View.VISIBLE
-                    val progressBar2 = binding.progressStart
-                    progressBar2.visibility = View.GONE
-                    viewModel.loadNewPage(viewModel._live.value!!.info?.next.toString())
+                if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
+                    binding.progressPrev.visibility==View.GONE&&binding.progressNext.visibility==View.GONE){
+                    loadNextPageAndProgressVisible()
                 }
             }
         }
         binding.rvForCharacters.addOnScrollListener(listener)
+    }
+    fun loadNextPageAndProgressVisible(){
+        binding.progressPrev.visibility=View.VISIBLE
+        viewModel.loadNextPage(viewModel._live.value!!.info?.next.toString())
+    }
+    fun loadPrevPageAndProgressVisible(){
+        binding.progressNext.visibility = View.VISIBLE
+        viewModel.loadPrevPage(viewModel._live.value!!.info?.prev.toString())
     }
     fun addBottomSheetForFilter(){
         binding.btnFilter.setOnClickListener {
@@ -83,16 +97,39 @@ CharactersViewModel::class.java
         }
     }
     fun followVisibleEndProgressBarLoad(){
-        activity?.let { it1 ->
-            viewModel._isLoading.observe(it1, Observer {
-                println("change load")
-                if (it.IsLoadingPrevPage == false||it.IsLoadingNewPage ==false){
-                    binding.progressEnd.visibility = View.GONE
-                    binding.progressStart.visibility = View.GONE
-                    println(viewModel._live.value!!.results?.size)
-                    adapter.notifyDataSetChanged()
-                }
-            })
+        followVisibleEndPrevLoadPage()
+        followVisibleEndNextLoadPage()
+    }
+    fun followVisibleEndPrevLoadPage(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.stateLoadingPrev
+                    .onEach {
+                        if (it.IsLoading==true){
+                            viewModel.setStateLoadPrevEnd()
+                            if (it.SizeLoadItem!=null&& it.SizeLoadItem!!>0){
+                                adapter.notifyItemRangeInserted(0,it.SizeLoadItem!!)
+                            }
+                            binding.progressNext.visibility = View.GONE
+                        }
+                    }
+                    .collect()
+            }
+        }
+    }
+    fun followVisibleEndNextLoadPage(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.stateLoadingNext
+                    .onEach {
+                        if (it == true){
+                            viewModel.setStateLoadNextEnd()
+                            binding.progressPrev.visibility = View.GONE
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                    .collect()
+            }
         }
     }
 
