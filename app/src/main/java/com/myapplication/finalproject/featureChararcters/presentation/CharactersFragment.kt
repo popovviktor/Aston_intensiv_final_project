@@ -18,7 +18,12 @@ import com.myapplication.finalproject.featureChararcters.domain.models.Character
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-
+private const val REQUEST_KEY = "request_key_find_filter"
+private const val FILTER_NAME = "filter_name"
+private const val FILTER_STATUS = "filter_status"
+private const val FILTER_SPECIES = "filter_species"
+private const val FILTER_TYPE = "filter_type"
+private const val FILTER_GENDER = "filter_gender"
 private const val LANDSCAPE_ORIENTATION = 2
 private val adapter = AdapterForCharacters()
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
@@ -38,9 +43,17 @@ CharactersViewModel::class.java
         }
     }
     fun registerFragmentResultListener(){
-        setFragmentResultListener("request_key") { key, bundle ->
-            val selectedSort = bundle.getString("extra_key")
-            println(selectedSort)
+        setFragmentResultListener(REQUEST_KEY) { key, bundle ->
+            val filterName = bundle.getString(FILTER_NAME)
+            val filterStatus = bundle.getString(FILTER_STATUS)
+            val filterSpecies = bundle.getString(FILTER_SPECIES)
+            val filterType = bundle.getString(FILTER_TYPE)
+            val filterGender = bundle.getString(FILTER_GENDER)
+            println(filterName)
+            println(filterStatus)
+            println(filterSpecies)
+            println(filterType)
+            println(filterGender)
             // применение полученной сортировки
         }
     }

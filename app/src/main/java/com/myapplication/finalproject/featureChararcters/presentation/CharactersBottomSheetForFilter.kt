@@ -1,11 +1,9 @@
 package com.myapplication.finalproject.featureChararcters.presentation
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.setFragmentResult
 import com.myapplication.finalproject.R
@@ -13,6 +11,13 @@ import com.myapplication.finalproject.app.core.base.bottomsheet.BaseBottomSheet
 import com.myapplication.finalproject.databinding.FragmentBottomSheetCharactersBinding
 private var filterStatus:String? = null
 private var filterGender:String? = null
+private const val REQUEST_KEY = "request_key_find_filter"
+private const val FILTER_NAME = "filter_name"
+private const val FILTER_STATUS = "filter_status"
+private const val FILTER_SPECIES = "filter_species"
+private const val FILTER_TYPE = "filter_type"
+private const val FILTER_GENDER = "filter_gender"
+
 class CharactersBottomSheetForFilter: BaseBottomSheet<FragmentBottomSheetCharactersBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,17 +28,62 @@ class CharactersBottomSheetForFilter: BaseBottomSheet<FragmentBottomSheetCharact
     }
     fun setClickListenerFindButton(){
         binding.btnFindWithFilter.setOnClickListener {
-            setFragmentResult()
+            setFragmentResultWithFilterForFound()
         }
     }
-    fun setFragmentResult(){
+    fun getBundleWithFilterParams():Bundle{
         val bundle = Bundle()
+        if (getFilterName()!=null){
+            bundle.putString(FILTER_NAME,getFilterName())
+        }
+        if (getFilterStatus()!=null){
+            bundle.putString(FILTER_STATUS,getFilterStatus())
+        }
+        if (getFilterSpecies()!=null){
+            bundle.putString(FILTER_SPECIES,getFilterSpecies())
+        }
+        if (getFilterType()!=null){
+            bundle.putString(FILTER_TYPE,getFilterType())
+        }
+        if (getFilterGender()!=null){
+            bundle.putString(FILTER_GENDER,getFilterGender())
+        }
+        return bundle
+    }
+    fun setFragmentResultWithFilterForFound(){
+        val bundle = getBundleWithFilterParams()
         bundle.putString("extra_key","ssssssss")
         setFragmentResult(
-            "request_key",
+            REQUEST_KEY,
             bundle
         )
         onDismiss(requireDialog())
+    }
+    fun getFilterStatus():String?{
+        return filterStatus
+    }
+    fun getFilterGender():String?{
+        return filterGender
+    }
+    fun getFilterName():String?{
+        val findName = binding.editFilterName.text.toString()
+        if (findName.length>0){
+            return findName
+        }else{
+            return null
+        }
+    }
+    fun getFilterSpecies():String?{
+        val findSpecies = binding.editSpeciesFilter.text.toString()
+        if (findSpecies.length>0){
+            return findSpecies
+        }else{return null}
+    }
+    fun getFilterType():String?{
+        val findType = binding.editTypeFilter.text.toString()
+        if (findType.length>0){
+            return findType
+        }else{return null}
     }
 
     fun defSettingForListenerButtonGender(it: View,btn_disable1:Button,btn_disable2: Button,btn_disable3: Button){
@@ -53,7 +103,6 @@ class CharactersBottomSheetForFilter: BaseBottomSheet<FragmentBottomSheetCharact
             it.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
             filterGender = null
         }
-        println(filterGender)
     }
     fun setClickListenersForGenderButtons(){
         setClickListenerGenderMale()
