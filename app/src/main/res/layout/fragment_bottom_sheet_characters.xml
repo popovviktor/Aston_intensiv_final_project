@@ -187,49 +187,49 @@
                     android:id="@+id/btn_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#0F811B"
                     android:checkable="true"
                     android:clickable="true"
                     android:text="Female"
                     android:textAllCaps="false"
                     android:textColor="#C8C8CA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
 
                 <Button
                     android:id="@+id/btn_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#0F811B"
                     android:checkable="true"
                     android:clickable="true"
                     android:text="Male"
                     android:textAllCaps="false"
                     android:textColor="#C8C8CA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
 
                 <Button
                     android:id="@+id/btn_genderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#0F811B"
                     android:checkable="true"
                     android:clickable="true"
                     android:text="Genderless"
                     android:textAllCaps="false"
                     android:textColor="#C8C8CA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
 
                 <Button
                     android:id="@+id/btnUnknownGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#0F811B"
                     android:checkable="true"
                     android:clickable="true"
                     android:text="Unknown"
                     android:textAllCaps="false"
                     android:textColor="#C8C8CA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
             </com.google.android.material.chip.ChipGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

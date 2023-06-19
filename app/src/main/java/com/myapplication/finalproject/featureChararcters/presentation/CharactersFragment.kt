@@ -2,6 +2,7 @@ package com.myapplication.finalproject.featureChararcters.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -29,10 +30,18 @@ CharactersViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registerFragmentResultListener()
         if (savedInstanceState==null){
             getLoadDefaultPageAndFollowResult()
         }else{
             defaultSettingForRecyclerCharacters()
+        }
+    }
+    fun registerFragmentResultListener(){
+        setFragmentResultListener("request_key") { key, bundle ->
+            val selectedSort = bundle.getString("extra_key")
+            println(selectedSort)
+            // применение полученной сортировки
         }
     }
 
