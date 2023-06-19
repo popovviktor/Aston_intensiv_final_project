@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
-import com.myapplication.finalproject.featureChararcters.domain.models.Info
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromDbUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersUseCase
@@ -24,8 +22,8 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                                               private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
                                               private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase
 ):ViewModel(){
-    private val _stateLoadingPrev= MutableStateFlow<LoadingPrev>(LoadingPrev(null,null))
-        val stateLoadingPrev:StateFlow<LoadingPrev> = _stateLoadingPrev.asStateFlow()
+    private val _stateLoadingRefresh= MutableStateFlow<Boolean>(false)
+        val stateLoadingPrev:StateFlow<Boolean> = _stateLoadingRefresh.asStateFlow()
     private val _stateLoadingNext = MutableStateFlow<Boolean>(false)
         val stateLoadingNext:StateFlow<Boolean> = _stateLoadingNext.asStateFlow()
     private val liveCharsive = MutableLiveData<CharactersDomain>()
@@ -41,7 +39,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
         _stateLoadingNext.value = false
     }
     fun setStateLoadPrevEnd(){
-        _stateLoadingPrev.value = LoadingPrev(null,null)
+        _stateLoadingRefresh.value = false
     }
 
     fun getInfo(){
@@ -63,32 +61,30 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
     suspend fun getPageFromDB(){
         getCharactersFromDbUseCase.execute().let {
             if (it!=null){
-                println(it)
                 liveCharsive.value = it
             }else{
                 println("нет сохранненного кеша")
             }
         }
     }
-    fun loadPrevPage(url:String){
-        if (url==null||url=="null"){
-            println("дошли до конца списка")
-            _stateLoadingPrev.value = LoadingPrev(true,0)
-        }else{
-            viewModelScope.launch(Dispatchers.IO) {
-                    getCharactersNewPageUseCase.execute(url).let {
-                        if (it!=null){
-                            liveCharsive.value?.info?.prev = it.info?.prev
-                            liveCharsive.value?.results?.addAll(0,it.results!!)
-                            _stateLoadingPrev.value = LoadingPrev(true,it.results!!.size)
-                            saveInDb(it)
-                        }
-                        else{
-                            println("eror internet")
-                        }
+    fun pullToRefresh(){
+        //getInfo()
+        setStateLoadPrevEnd()
+        viewModelScope.launch(Dispatchers.Main) {
+            getCharactersUseCase.execute().let {
+                if (it!=null){
+                    liveCharsive.value?.results?.clear()
+                    liveCharsive.value = it
+                    saveInDb(it)
+                    _stateLoadingRefresh.value = true
+                }else{
+                    println("нет интернета")
+                    getPageFromDB()
 
-                    }
                 }
+
+            }
+
         }
     }
     fun loadNextPage(url:String){

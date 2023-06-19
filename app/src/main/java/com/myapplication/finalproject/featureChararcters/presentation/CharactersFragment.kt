@@ -13,6 +13,7 @@ import com.myapplication.finalproject.featureChararcters.presentation.adapter.Ad
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 
+
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import kotlinx.coroutines.flow.collect
@@ -94,11 +95,11 @@ CharactersViewModel::class.java
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(-1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
-                    binding.progressNext.visibility==View.GONE && binding.progressPrev.visibility==View.GONE){
-                    loadPrevPageAndProgressVisible()
+                    binding.progressRefresh.visibility==View.GONE && binding.progressPrev.visibility==View.GONE){
+                    pullToRefresh()
                 }
                 if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
-                    binding.progressPrev.visibility==View.GONE&&binding.progressNext.visibility==View.GONE){
+                    binding.progressPrev.visibility==View.GONE&&binding.progressRefresh.visibility==View.GONE){
                     loadNextPageAndProgressVisible()
                 }
             }
@@ -109,9 +110,9 @@ CharactersViewModel::class.java
         binding.progressPrev.visibility=View.VISIBLE
         viewModel.loadNextPage(viewModel._live.value!!.info?.next.toString())
     }
-    fun loadPrevPageAndProgressVisible(){
-        binding.progressNext.visibility = View.VISIBLE
-        viewModel.loadPrevPage(viewModel._live.value!!.info?.prev.toString())
+    fun pullToRefresh(){
+        binding.progressRefresh.visibility = View.VISIBLE
+        viewModel.pullToRefresh()
     }
     fun addBottomSheetForFilter(){
         binding.btnFilter.setOnClickListener {
@@ -127,12 +128,10 @@ CharactersViewModel::class.java
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.stateLoadingPrev
                     .onEach {
-                        if (it.IsLoading==true){
+                        if (it==true){
                             viewModel.setStateLoadPrevEnd()
-                            if (it.SizeLoadItem!=null&& it.SizeLoadItem!!>0){
-                                adapter.notifyItemRangeInserted(0,it.SizeLoadItem!!)
-                            }
-                            binding.progressNext.visibility = View.GONE
+                            binding.progressRefresh.visibility = View.GONE
+                            adapter.notifyDataSetChanged()
                         }
                     }
                     .collect()

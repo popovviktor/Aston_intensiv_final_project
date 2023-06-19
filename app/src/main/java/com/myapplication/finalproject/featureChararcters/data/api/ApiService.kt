@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface ApiService {
-    @GET("character/?page=11")
+    @GET("character/")
     suspend fun getCharacters(): Response<CharactersDomain>
     @GET
     suspend fun getCharactersNewPage(@Url url:String):Response<CharactersDomain>
