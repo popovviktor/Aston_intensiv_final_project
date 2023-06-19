@@ -5,231 +5,233 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".featureChararcters.presentation.Bottom_sheet_characters">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editFilterName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="65dp"
-            android:layout_height="17dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Status:"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="@+id/editFilterName"
-            app:layout_constraintStart_toStartOf="@+id/editFilterName"
-            app:layout_constraintTop_toBottomOf="@+id/editFilterName" />
+            <EditText
+                android:id="@+id/editFilterName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <EditText
-            android:id="@+id/editSpeciesFilter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Species:"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/editFilterName"
-            app:layout_constraintStart_toStartOf="@+id/editFilterName"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="65dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Status:"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="@+id/editFilterName"
+                app:layout_constraintStart_toStartOf="@+id/editFilterName"
+                app:layout_constraintTop_toBottomOf="@+id/editFilterName" />
 
-        <EditText
-            android:id="@+id/editTypeFilter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Type:"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/editSpeciesFilter"
-            app:layout_constraintStart_toStartOf="@+id/editSpeciesFilter"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            <EditText
+                android:id="@+id/editSpeciesFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Species:"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@+id/editFilterName"
+                app:layout_constraintStart_toStartOf="@+id/editFilterName"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Name:"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/editTypeFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Type:"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@+id/editSpeciesFilter"
+                app:layout_constraintStart_toStartOf="@+id/editSpeciesFilter"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Species:"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Type:"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editSpeciesFilter" />
-
-        <Button
-            android:id="@+id/btnFindWithFilter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#0F811B"
-            android:text="Find"
-            android:textColor="#EFE7E7"
-            app:layout_constraintEnd_toEndOf="@+id/editTypeFilter"
-            app:layout_constraintStart_toStartOf="@+id/editTypeFilter"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
-
-            <Button
-                android:id="@+id/btnAliveStatus"
+            <TextView
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:clickable="true"
-                android:text="Alive"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
+                android:layout_marginTop="8dp"
+                android:text="Name:"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btnDeadStatus"
+            <TextView
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:text="Dead"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
+                android:layout_marginTop="8dp"
+                android:text="Species:"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
-            <Button
-                android:id="@+id/btnUnknownStatus"
+            <TextView
+                android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:text="Unknown"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Gender:"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTypeFilter" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:chipSpacingHorizontal="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+                android:layout_marginTop="8dp"
+                android:text="Type:"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editSpeciesFilter" />
 
             <Button
-                android:id="@+id/btn_female"
+                android:id="@+id/btnFindWithFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#0F811B"
+                android:text="Find"
+                android:textColor="#EFE7E7"
+                app:layout_constraintEnd_toEndOf="@+id/editTypeFilter"
+                app:layout_constraintStart_toStartOf="@+id/editTypeFilter"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:clickable="true"
-                android:text="Female"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-            <Button
-                android:id="@+id/btn_male"
+                <Button
+                    android:id="@+id/btnAliveStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:text="Alive"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
+
+                <Button
+                    android:id="@+id/btnDeadStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:checkable="true"
+                    android:text="Dead"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
+
+                <Button
+                    android:id="@+id/btnUnknownStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Unknown"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp"
+                    app:rippleColor="@color/teal_200" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:clickable="true"
-                android:text="Male"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
+                android:layout_marginTop="8dp"
+                android:text="Gender:"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTypeFilter" />
 
-            <Button
-                android:id="@+id/btn_genderless"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:clickable="true"
-                android:text="Genderless"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
+                android:layout_marginTop="8dp"
+                app:chipSpacingHorizontal="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
 
-            <Button
-                android:id="@+id/btnUnknownGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#0F811B"
-                android:checkable="true"
-                android:clickable="true"
-                android:text="Unknown"
-                android:textAllCaps="false"
-                android:textColor="#C8C8CA"
-                android:textSize="12sp" />
-        </com.google.android.material.chip.ChipGroup>
+                <Button
+                    android:id="@+id/btn_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0F811B"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:text="Female"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/btn_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0F811B"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:text="Male"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_genderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0F811B"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:text="Genderless"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btnUnknownGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0F811B"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:text="Unknown"
+                    android:textAllCaps="false"
+                    android:textColor="#C8C8CA"
+                    android:textSize="12sp" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

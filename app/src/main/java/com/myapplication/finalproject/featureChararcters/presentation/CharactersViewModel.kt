@@ -31,12 +31,9 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
     private val liveCharsive = MutableLiveData<CharactersDomain>()
     val _live:LiveData<CharactersDomain>
         get() = liveCharsive
-    private val characterPAge = MutableLiveData<ArrayList<CharacterDomain>>()
-    val _characterPAge:LiveData<ArrayList<CharacterDomain>>
-        get() = characterPAge
-    private val infoPage = MutableLiveData<Info>()
-        val _infoPAge:LiveData<Info>
-        get() = infoPage
+    private val _characterPageForFilter = MutableLiveData<CharactersDomain>()
+    val characterPageForFilter:LiveData<CharactersDomain>
+        get() = _characterPageForFilter
     init {
 
     }
@@ -52,9 +49,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
             getCharactersUseCase.execute().let {
                    if (it!=null){
                        liveCharsive.value = it
-                       characterPAge.value = it.results!!
                        saveInDb(it)
-                       println("1sdasd1")
                    }else{
                        println("нет интернета")
                        getPageFromDB()
@@ -70,7 +65,6 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
             if (it!=null){
                 println(it)
                 liveCharsive.value = it
-                characterPAge.value = it.results!!
             }else{
                 println("нет сохранненного кеша")
             }
@@ -85,10 +79,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                     getCharactersNewPageUseCase.execute(url).let {
                         if (it!=null){
                             liveCharsive.value?.info?.prev = it.info?.prev
-                            val def = characterPAge.value
-                            characterPAge.value?.addAll(0,it.results!!)
-                            liveCharsive.value?.results = characterPAge.value
-                            //(it.results!!)
+                            liveCharsive.value?.results?.addAll(0,it.results!!)
                             _stateLoadingPrev.value = LoadingPrev(true,it.results!!.size)
                             saveInDb(it)
                         }
@@ -110,8 +101,8 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
                     println("end loading")
                     if (it!=null){
                         liveCharsive.value?.info?.next = it.info?.next
+                        liveCharsive.value?.results?.addAll(it.results!!)
                         println(liveCharsive.value?.info?.next)
-                        characterPAge.value?.addAll(it.results!!)
                         _stateLoadingNext.value = true
                         saveInDb(it)
                     }
