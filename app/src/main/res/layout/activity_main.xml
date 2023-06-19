@@ -6,8 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".app.MainActivity"
     android:orientation="vertical">
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
+        android:name="com.myapplication.finalproject.featureChararcters.presentation.CharactersFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_characters" />
 </androidx.constraintlayout.widget.ConstraintLayout>

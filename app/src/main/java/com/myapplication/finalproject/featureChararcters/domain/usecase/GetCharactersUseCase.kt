@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetCharactersUseCase @Inject constructor(private val repository: Repository) {
     suspend fun execute(): CharactersDomain?{
-        return repository.getDataCharacters()
+        return repository.getDefaultPageCharactersFromWeb()
     }
 }

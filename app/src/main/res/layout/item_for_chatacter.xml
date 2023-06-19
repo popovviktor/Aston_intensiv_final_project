@@ -6,8 +6,9 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
-        android:layout_height="150dp">
+        android:id="@+id/cardViewItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -17,8 +18,8 @@
                 android:id="@+id/imViewItemChatacter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
+                android:scaleType="fitXY"
+                android:visibility="visible"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,51 +27,75 @@
                 android:layout_height="match_parent">
 
                 <TextView
+
                     android:id="@+id/TvSpecies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:shadowColor="#FFFFFF"
+                    android:shadowDx="1.5"
+                    android:shadowDy="1.5"
+                    android:shadowRadius="10"
                     android:text="TextView"
                     android:textColor="#090000"
+                    android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TvName" />
+                    app:layout_constraintTop_toBottomOf="@+id/TvName"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/TvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="4dp"
+                    android:shadowColor="#FFFFFF"
+                    android:shadowDx="1.5"
+                    android:shadowDy="1.5"
+                    android:shadowRadius="10"
                     android:text="TextView"
                     android:textColor="#000000"
-                    app:layout_constraintBottom_toTopOf="@+id/TvSpecies"
-                    app:layout_constraintEnd_toEndOf="@+id/TvSpecies"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/TvSpecies"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/TvStatusItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:shadowColor="#FFFFFF"
+                    android:shadowDx="1.5"
+                    android:shadowDy="1.5"
+                    android:shadowRadius="10"
                     android:text="TextView"
                     android:textColor="#000000"
+                    android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="@+id/TvSpecies"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.74"
                     app:layout_constraintStart_toEndOf="@+id/TvSpecies" />
 
                 <TextView
                     android:id="@+id/tvItemGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:shadowColor="#FFFDFD"
+                    android:shadowDx="1.5"
+                    android:shadowDy="1.5"
+                    android:shadowRadius="10"
                     android:text="TextView"
                     android:textColor="#000000"
-                    app:layout_constraintBottom_toBottomOf="@+id/TvName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/TvName" />
+                    android:textStyle="bold|italic"
+                    app:layout_constraintStart_toStartOf="@+id/TvName"
+                    app:layout_constraintTop_toBottomOf="@+id/TvName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>

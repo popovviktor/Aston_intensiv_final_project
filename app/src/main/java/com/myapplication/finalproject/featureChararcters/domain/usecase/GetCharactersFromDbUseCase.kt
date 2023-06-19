@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class GetCharactersFromDbUseCase @Inject constructor(private val repository: Repository) {
     suspend fun execute(): CharactersDomain?{
-        return repository.getDataCharactersFromDB()
+        return repository.getPageCharactersFromDB()
     }
 }

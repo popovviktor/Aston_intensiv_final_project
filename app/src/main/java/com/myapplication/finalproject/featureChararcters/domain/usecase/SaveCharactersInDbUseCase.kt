@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class SaveCharactersInDbUseCase@Inject constructor(private val repository: Repository) {
     suspend fun execute(charactersDomain: CharactersDomain){
-        repository.saveDataCharactersInDb(charactersDomain =charactersDomain )
+        repository.saveDataCharactersInDB(charactersDomain =charactersDomain )
     }
 }

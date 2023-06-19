@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".featureChararcters.presentation.Bottom_sheet_characters">
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editFilterName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/editSpeciesFilter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -53,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/editTypeFilter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -62,8 +64,8 @@
             android:hint="Type:"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName3"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
+            app:layout_constraintEnd_toEndOf="@+id/editSpeciesFilter"
+            app:layout_constraintStart_toStartOf="@+id/editSpeciesFilter"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
@@ -97,19 +99,19 @@
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+            app:layout_constraintTop_toBottomOf="@+id/editSpeciesFilter" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btnFindWithFilter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:backgroundTint="#0F811B"
             android:text="Find"
             android:textColor="#EFE7E7"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName4"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+            app:layout_constraintEnd_toEndOf="@+id/editTypeFilter"
+            app:layout_constraintStart_toStartOf="@+id/editTypeFilter"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
         <RadioGroup
             android:id="@+id/radioGroup2"
@@ -122,8 +124,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
             <Button
-                android:id="@+id/btn_status_alive"
-                android:layout_width="100dp"
+                android:id="@+id/btnAliveStatus"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#0F811B"
                 android:checkable="true"
@@ -134,8 +136,8 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button5"
-                android:layout_width="100dp"
+                android:id="@+id/btnDeadStatus"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -147,8 +149,8 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button4"
-                android:layout_width="100dp"
+                android:id="@+id/btnUnknownStatus"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#0F811B"
                 android:checkable="true"
@@ -158,5 +160,76 @@
                 android:textSize="12sp" />
         </RadioGroup>
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Gender:"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTypeFilter" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:chipSpacingHorizontal="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <Button
+                android:id="@+id/btn_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#0F811B"
+                android:checkable="true"
+                android:clickable="true"
+                android:text="Female"
+                android:textAllCaps="false"
+                android:textColor="#C8C8CA"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#0F811B"
+                android:checkable="true"
+                android:clickable="true"
+                android:text="Male"
+                android:textAllCaps="false"
+                android:textColor="#C8C8CA"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_genderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#0F811B"
+                android:checkable="true"
+                android:clickable="true"
+                android:text="Genderless"
+                android:textAllCaps="false"
+                android:textColor="#C8C8CA"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnUnknownGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#0F811B"
+                android:checkable="true"
+                android:clickable="true"
+                android:text="Unknown"
+                android:textAllCaps="false"
+                android:textColor="#C8C8CA"
+                android:textSize="12sp" />
+        </com.google.android.material.chip.ChipGroup>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

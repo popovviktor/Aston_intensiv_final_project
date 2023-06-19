@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDataSource, private val dao: CharactersDao):
     Repository {
-    override suspend fun getDataCharacters(): CharactersDomain? {
+    override suspend fun getDefaultPageCharactersFromWeb(): CharactersDomain? {
         var characters: CharactersDomain? = null
         try {
             characters = remoteDataSource.getCharacters().body()
@@ -26,7 +26,7 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
 
         return characters
     }
-    override suspend fun saveDataCharactersInDb(charactersDomain: CharactersDomain){
+    override suspend fun saveDataCharactersInDB(charactersDomain: CharactersDomain){
         val mapper = MapModelDomainToData()
         val modelDAta = mapper.mapCharactersDomainToData(charactersDomain)
         withContext(Dispatchers.IO){
@@ -44,7 +44,7 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
 
     }
 
-    override suspend fun getDataCharactersFromDB(): CharactersDomain? {
+    override suspend fun getPageCharactersFromDB(): CharactersDomain? {
         val dataInfo = dao.getInfo()
         val data = dao.getAllCharacters()
         val mapper = MapModelDataToDomain()
@@ -56,7 +56,7 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
         return charactersDomain
     }
 
-    override suspend fun getNewPageCharacters(urlNewPage: String): CharactersDomain? {
+    override suspend fun getNewPageCharactersFromWeb(urlNewPage: String): CharactersDomain? {
         var characters: CharactersDomain? = null
         try {
             val newPage = remoteDataSource.getCharactersNewPage(urlNewPage)
