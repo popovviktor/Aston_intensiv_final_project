@@ -12,13 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
-
-
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+
 private const val REQUEST_KEY = "request_key_find_filter"
 private const val FILTER_NAME = "filter_name"
 private const val FILTER_STATUS = "filter_status"
@@ -27,6 +26,8 @@ private const val FILTER_TYPE = "filter_type"
 private const val FILTER_GENDER = "filter_gender"
 private const val LANDSCAPE_ORIENTATION = 2
 private val adapter = AdapterForCharacters()
+
+
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
 CharactersViewModel::class.java
 ){
@@ -38,7 +39,7 @@ CharactersViewModel::class.java
         super.onViewCreated(view, savedInstanceState)
         registerFragmentResultListener()
         if (savedInstanceState==null){
-            getLoadDefaultPageAndFollowResult()
+            getLoadDefaultPageAndFollowResultLoad()
         }else{
             defaultSettingForRecyclerCharacters()
         }
@@ -50,21 +51,18 @@ CharactersViewModel::class.java
             val filterSpecies = bundle.getString(FILTER_SPECIES)
             val filterType = bundle.getString(FILTER_TYPE)
             val filterGender = bundle.getString(FILTER_GENDER)
-            println(filterName)
-            println(filterStatus)
-            println(filterSpecies)
-            println(filterType)
-            println(filterGender)
-            // применение полученной сортировки
+            viewModel.enableFilterFind()
+            viewModel.getDefaultUrlForFindWithFilter(filterName,filterStatus,
+            filterSpecies,filterType,filterGender)
         }
     }
 
     override fun initDaggerComponent(function: () -> Unit) {
         CharactersComponent.init(requireActivity()).inject(this)
     }
-    fun getLoadDefaultPageAndFollowResult(){
-        viewModel.getInfo()
-        viewModel._live.observe(requireActivity(), Observer {
+    fun getLoadDefaultPageAndFollowResultLoad(){
+        viewModel.getDefaultPage()
+        viewModel.characters.observe(requireActivity(), Observer {
             if (it!=null){
                 setListInAdapter(it.results!!)
                 defaultSettingForRecyclerCharacters()
@@ -108,7 +106,7 @@ CharactersViewModel::class.java
     }
     fun loadNextPageAndProgressVisible(){
         binding.progressPrev.visibility=View.VISIBLE
-        viewModel.loadNextPage(viewModel._live.value!!.info?.next.toString())
+        viewModel.loadNextPage(viewModel.characters.value!!.info?.next.toString())
     }
     fun pullToRefresh(){
         binding.progressRefresh.visibility = View.VISIBLE
@@ -120,16 +118,16 @@ CharactersViewModel::class.java
         }
     }
     fun followVisibleEndProgressBarLoad(){
-        followVisibleEndPrevLoadPage()
+        followVisibleEndRefresh()
         followVisibleEndNextLoadPage()
     }
-    fun followVisibleEndPrevLoadPage(){
+    fun followVisibleEndRefresh(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.stateLoadingPrev
+                viewModel.stateEndLoadingRefresh
                     .onEach {
                         if (it==true){
-                            viewModel.setStateLoadPrevEnd()
+                            viewModel.setStateLoadRefresh()
                             binding.progressRefresh.visibility = View.GONE
                             adapter.notifyDataSetChanged()
                         }
@@ -138,10 +136,13 @@ CharactersViewModel::class.java
             }
         }
     }
+    fun followFilterEnable(){
+
+    }
     fun followVisibleEndNextLoadPage(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.stateLoadingNext
+                viewModel.stateEndLoadingNextPage
                     .onEach {
                         if (it == true){
                             viewModel.setStateLoadNextEnd()

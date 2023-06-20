@@ -20,8 +20,8 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
         var characters: CharactersDomain? = null
         try {
             characters = remoteDataSource.getCharacters().body()
+            dao.clearTableCharacter()
         }catch (ex:java.lang.Exception){
-            println(ex.message)
         }
 
         return characters
@@ -31,17 +31,13 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
         val modelDAta = mapper.mapCharactersDomainToData(charactersDomain)
         withContext(Dispatchers.IO){
          if (modelDAta!=null){
-             dao.clearTableCharacter()
              dao.clearTableCharacterPageINfo()
              dao.insert(modelDAta.info!!)
              for (elem in (modelDAta.results)){
                  dao.insertCharacter(elem)
              }
          }
-
         }
-
-
     }
 
     override suspend fun getPageCharactersFromDB(): CharactersDomain? {
@@ -62,8 +58,6 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
             val newPage = remoteDataSource.getCharactersNewPage(urlNewPage)
             characters = newPage.body()
         }catch (ex:java.lang.Exception){}
-        println(characters)
-        println("newpage")
         return characters
 
     }
