@@ -178,16 +178,16 @@ class CharactersViewModel @Inject constructor(
         for (elem in charactersFromDb.results!!){
             val boolFiltersItem = ArrayList<Boolean>()
             if (paramsFilter.name!=null){
-                boolFiltersItem.add(elem.name?.lowercase().equals(paramsFilter.name.lowercase()))
+                boolFiltersItem.add(elem.name?.lowercase()!!.contains(paramsFilter.name.lowercase()))
             }
             if (paramsFilter.status!=null){
                 boolFiltersItem.add(elem.status?.lowercase().equals(paramsFilter.status.lowercase()))
             }
             if (paramsFilter.species!=null){
-                boolFiltersItem.add(elem.species?.lowercase().equals(paramsFilter.species.lowercase()))
+                boolFiltersItem.add(elem.species?.lowercase()!!.contains(paramsFilter.species.lowercase()))
             }
             if (paramsFilter.type!=null){
-                boolFiltersItem.add(elem.type?.lowercase().equals(paramsFilter.type.lowercase()))
+                boolFiltersItem.add(elem.type?.lowercase()!!.contains(paramsFilter.type.lowercase()))
             }
             if (paramsFilter.gender!=null){
                 boolFiltersItem.add(elem.gender?.lowercase().equals(paramsFilter.gender.lowercase()))
