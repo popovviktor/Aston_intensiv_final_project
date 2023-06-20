@@ -1,12 +1,12 @@
-package com.myapplication.finalproject.featureLocation.models
+package com.myapplication.finalproject.featureLocation.domain.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Locations(
-    @SerializedName("info"    ) var info    : InfoLocationPage?              = InfoLocationPage(),
-    @SerializedName("results" ) var results : ArrayList<Location> = arrayListOf()
+data class LocationsDomain(
+    @SerializedName("info"    ) var info    : InfoLocationPageDomain?              = InfoLocationPageDomain(),
+    @SerializedName("results" ) var results : ArrayList<LocationDomain> = arrayListOf()
 )
-data class InfoLocationPage (
+data class InfoLocationPageDomain (
 
     @SerializedName("count" ) var count : Int?    = null,
     @SerializedName("pages" ) var pages : Int?    = null,
@@ -14,7 +14,7 @@ data class InfoLocationPage (
     @SerializedName("prev"  ) var prev  : String? = null
 
 )
-data class Location (
+data class LocationDomain (
 
     @SerializedName("id"        ) var id        : Int?              = null,
     @SerializedName("name"      ) var name      : String?           = null,

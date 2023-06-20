@@ -7,7 +7,7 @@ import com.myapplication.finalproject.featureChararcters.data.models.LocationDat
 import com.myapplication.finalproject.featureChararcters.data.models.OriginData
 import com.myapplication.finalproject.featureChararcters.domain.models.*
 
-class MapModelDataToDomain {
+class MapModelDataToDomainCharacters {
     fun mapToDomain(charactersData: CharactersEntity): CharactersDomain {
         val charctersDomain = ArrayList<CharacterDomain>()
         for (elem in charactersData.results){

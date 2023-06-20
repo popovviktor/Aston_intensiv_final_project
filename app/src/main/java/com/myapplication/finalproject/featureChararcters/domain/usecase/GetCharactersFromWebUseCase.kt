@@ -1,10 +1,10 @@
 package com.myapplication.finalproject.featureChararcters.domain.usecase
 
 import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
-import com.myapplication.finalproject.featureChararcters.domain.repository.Repository
+import com.myapplication.finalproject.featureChararcters.domain.repository.RepositoryCharacters
 import javax.inject.Inject
 
-class GetCharactersUseCase @Inject constructor(private val repository: Repository) {
+class GetCharactersFromWebUseCase @Inject constructor(private val repository: RepositoryCharacters) {
     suspend fun execute(): CharactersDomain?{
         return repository.getDefaultPageCharactersFromWeb()
     }

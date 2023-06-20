@@ -9,7 +9,7 @@ import com.myapplication.finalproject.featureChararcters.domain.models.Character
 import com.myapplication.finalproject.featureChararcters.domain.models.Info
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromDbUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
-import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersUseCase
+import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromWebUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.SaveCharactersInDbUseCase
 import com.myapplication.finalproject.featureChararcters.presentation.model.ParamsFilterFromDb
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersViewModel @Inject constructor(
-    private val getCharactersUseCase: GetCharactersUseCase,
+    private val getCharactersUseCase: GetCharactersFromWebUseCase,
     private val saveCharactersInDbUseCase: SaveCharactersInDbUseCase,
     private val getCharactersFromDbUseCase: GetCharactersFromDbUseCase,
     private val getCharactersNewPageUseCase: GetCharactersNewPageUseCase

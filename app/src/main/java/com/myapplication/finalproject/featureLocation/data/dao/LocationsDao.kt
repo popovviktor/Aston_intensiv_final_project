@@ -1,15 +1,12 @@
-package com.myapplication.finalproject.featureChararcters.data.dao
+package com.myapplication.finalproject.featureLocation.data.dao
 
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.myapplication.finalproject.featureChararcters.data.models.CharacterData
-import com.myapplication.finalproject.featureChararcters.data.models.CharactersEntity
 import com.myapplication.finalproject.featureChararcters.data.models.InfoData
-import retrofit2.http.GET
 
 @androidx.room.Dao
-interface CharactersDao {
+interface LocationsDao {
     @Insert(entity = InfoData::class)
     fun insert(infoData: InfoData)
 

@@ -1,32 +1,27 @@
 package com.myapplication.finalproject.featureChararcters.di
 
-import android.app.Application
 import android.content.Context
-import androidx.room.Dao
-import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.myapplication.finalproject.featureChararcters.data.AppDb.AppDataBase
-import com.myapplication.finalproject.featureChararcters.data.api.ApiService
-import com.myapplication.finalproject.featureChararcters.data.api.RemoteDataSource
-import com.myapplication.finalproject.featureChararcters.data.dao.CharactersDao
-import com.myapplication.finalproject.featureChararcters.data.repository.RepositoryImpl
-import com.myapplication.finalproject.featureChararcters.domain.repository.Repository
+import com.myapplication.finalproject.featureChararcters.data.AppDb.AppDataBaseCharacters
+import com.myapplication.finalproject.featureChararcters.data.api.ApiServiceCharacters
+import com.myapplication.finalproject.featureChararcters.data.api.RemoteDataSourceCharacters
+import com.myapplication.finalproject.featureChararcters.data.repository.RepositoryCharactersImpl
+import com.myapplication.finalproject.featureChararcters.domain.repository.RepositoryCharacters
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
 import javax.inject.Singleton
 
 @Module
 class DataModule() {
     @Provides
-    fun provideAppDataBase(context: Context): AppDataBase {
-        return AppDataBase.getAppDataBase(context.applicationContext)
+    fun provideAppDataBase(context: Context): AppDataBaseCharacters {
+        return AppDataBaseCharacters.getAppDataBase(context.applicationContext)
     }
     @Singleton
     @Provides
@@ -61,18 +56,18 @@ class DataModule() {
     }
     @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun provideApi(retrofit: Retrofit): ApiServiceCharacters {
+        return retrofit.create(ApiServiceCharacters::class.java)
     }
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: RemoteDataSource, dao: AppDataBase): Repository {
-        return RepositoryImpl(remoteDataSource,dao.getCharactersDao())
+    fun provideRepository(remoteDataSource: RemoteDataSourceCharacters, dao: AppDataBaseCharacters): RepositoryCharacters {
+        return RepositoryCharactersImpl(remoteDataSource,dao.getCharactersDao())
     }
     @Singleton
     @Provides
-    fun provideRemoteDataSource(apiService: ApiService): RemoteDataSource {
-        return RemoteDataSource(apiService)
+    fun provideRemoteDataSource(apiService: ApiServiceCharacters): RemoteDataSourceCharacters {
+        return RemoteDataSourceCharacters(apiService)
     }
 
 

@@ -6,7 +6,7 @@ import com.myapplication.finalproject.featureChararcters.domain.models.Character
 import com.myapplication.finalproject.featureChararcters.domain.models.Info
 import com.myapplication.finalproject.featureChararcters.data.models.*
 
-class MapModelDomainToData {
+class MapModelDomainToDataCharacters {
     fun mapCharactersDomainToData(charactersDomain: CharactersDomain): CharactersEntity {
         val charactersData = CharactersEntity()
         val infoToData = mapInfoToData(charactersDomain.info)
