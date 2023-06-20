@@ -9,11 +9,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.myapplication.finalproject.R
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
+import com.myapplication.finalproject.featureChararcters.presentation.adapter.onClickItemCharacterListener
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -27,10 +29,9 @@ private const val FILTER_GENDER = "filter_gender"
 private const val LANDSCAPE_ORIENTATION = 2
 private val adapter = AdapterForCharacters()
 
-
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
 CharactersViewModel::class.java
-){
+),onClickItemCharacterListener{
     override fun createBinding(): FragmentCharactersBinding {
         return FragmentCharactersBinding.inflate(layoutInflater)
     }
@@ -39,12 +40,24 @@ CharactersViewModel::class.java
         super.onViewCreated(view, savedInstanceState)
         registerFragmentResultListener()
         if (savedInstanceState==null){
-            getLoadDefaultPageAndFollowResultLoad()
+            if (adapter.list.size>0){
+                followCharactersUpdateForUi()
+            }else{
+                getLoadDefaultPageAndFollowCharacterUpdateForUi()
+            }
         }else{
             defaultSettingForRecyclerCharacters()
         }
         setClickCloseFilter()
         followFilterEnable()
+    }
+    fun followCharactersUpdateForUi(){
+        viewModel.characters.observe(requireActivity(), Observer {
+            if (it!=null){
+                setListInAdapter(it.results!!)
+                defaultSettingForRecyclerCharacters()
+            }
+        })
     }
     fun registerFragmentResultListener(){
         setFragmentResultListener(REQUEST_KEY) { key, bundle ->
@@ -63,18 +76,15 @@ CharactersViewModel::class.java
     override fun initDaggerComponent(function: () -> Unit) {
         CharactersComponent.init(requireActivity()).inject(this)
     }
-    fun getLoadDefaultPageAndFollowResultLoad(){
+    fun getLoadDefaultPageAndFollowCharacterUpdateForUi(){
+        followCharactersUpdateForUi()
         viewModel.getDefaultPage()
-        viewModel.characters.observe(requireActivity(), Observer {
-            if (it!=null){
-                setListInAdapter(it.results!!)
-                defaultSettingForRecyclerCharacters()
-            }
-        })
+
     }
     fun defaultSettingForRecyclerCharacters(){
         setLayoutManagerInRecycler()
         binding.rvForCharacters.adapter = adapter
+        adapter.onClickListener  =this
         addBottomSheetForFilter()
         followVisibleEndProgressBarLoad()
         setScrollListenerForRecyclerCharacters()
@@ -132,8 +142,8 @@ CharactersViewModel::class.java
                         if (it==true){
                             viewModel.setStateLoadRefreshDisable()
                             binding.progressRefresh.visibility = View.GONE
-                            adapter.notifyDataSetChanged()
                         }
+                        adapter.notifyDataSetChanged()
                     }
                     .collect()
             }
@@ -154,7 +164,9 @@ CharactersViewModel::class.java
                             binding.imCloseFilterFind.visibility = View.VISIBLE
                         }else{
                             binding.imCloseFilterFind.visibility = View.GONE
+
                         }
+                        adapter.notifyDataSetChanged()
                     }
                     .collect()
             }
@@ -168,12 +180,30 @@ CharactersViewModel::class.java
                         if (it == true){
                             viewModel.setStateLoadNextEnd()
                             binding.progressNextPage.visibility = View.GONE
-                            adapter.notifyDataSetChanged()
                         }
+                        adapter.notifyDataSetChanged()
                     }
                     .collect()
             }
         }
+    }
+
+    override fun clickitem(item: CharacterDomain) {
+        println(item)
+        val bundle = Bundle()
+        bundle.putString("key","vaullsdasdasd")
+        val fragment = DetailCharacterFragment()
+        fragment.arguments = bundle
+        parentFragmentManager.saveFragmentInstanceState(this)
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container,fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+    companion object {
+        @JvmStatic
+        fun newInstance() = CharactersFragment()
     }
 
 }

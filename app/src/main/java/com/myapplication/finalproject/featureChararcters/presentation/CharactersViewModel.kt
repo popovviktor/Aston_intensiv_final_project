@@ -32,12 +32,8 @@ class CharactersViewModel @Inject constructor(
     private val _characters = MutableLiveData<CharactersDomain>()
     val characters:LiveData<CharactersDomain>
         get() = _characters
-    private val _characterPageForFilter = MutableLiveData<CharactersDomain>()
-    val characterPageForFilter:LiveData<CharactersDomain>
-        get() = _characterPageForFilter
     private val _isFilterEnable=MutableStateFlow<Boolean>(false)
     val isFilterEnable:StateFlow<Boolean> = _isFilterEnable.asStateFlow()
-    //private val isRefreshEnable=MutableStateFlow<Boolean>(false)
     private var defultUrlForFilterFind:String? = null
     private var paramsFilterFromDB:ParamsFilterFromDb? = null
     fun setStateLoadNextEnd(){
@@ -103,7 +99,6 @@ class CharactersViewModel @Inject constructor(
     fun getDefaultPageWithFilter(urlDefaultPageWithFilter:String){
         viewModelScope.launch(Dispatchers.IO) {
             getCharactersNewPageUseCase.execute(urlDefaultPageWithFilter).let {
-                println("end loading")
                 if (it!=null){
                     _characters.postValue(it)
                 }
@@ -135,8 +130,6 @@ class CharactersViewModel @Inject constructor(
         }
     }
     fun pullToRefresh(){
-        //setStateLoadRefreshDisable()
-        println(_isFilterEnable.value)
         if (_isFilterEnable.value==true&&defultUrlForFilterFind!=null){
             getDefaultPageWithFilter(defultUrlForFilterFind!!)
         }else{
@@ -165,7 +158,6 @@ class CharactersViewModel @Inject constructor(
                     if (_stateEndLoadingRefresh.value!=true && _isFilterEnable.value ==true){
                         _stateEndLoadingRefresh.value = true
                     }
-                    //resetEnableFilterFind()
                 }
 
             }
@@ -198,18 +190,15 @@ class CharactersViewModel @Inject constructor(
         }
         return CharactersDomain(info = info, results = foundCharacters)
     }
-
     fun resetEnableFilterFind() {
         if (_isFilterEnable.value==true){
             _isFilterEnable.value = false
         }
     }
-
     fun saveInDb(charactersDomain: CharactersDomain){
         viewModelScope.launch(Dispatchers.IO){
             saveCharactersInDbUseCase.execute(charactersDomain)
         }
-
     }
     }
 

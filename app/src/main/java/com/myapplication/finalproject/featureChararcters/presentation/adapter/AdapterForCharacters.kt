@@ -20,6 +20,7 @@ class AdapterForCharacters:RecyclerView.Adapter<AdapterForCharacters.ViewHolderF
             dif_result.dispatchUpdatesTo(this)
             field = value
         }
+    var onClickListener:onClickItemCharacterListener? =null
     class ViewHolderForCharacters(item:View):RecyclerView.ViewHolder(item) {
         private val binding = ItemForChatacterBinding.bind(item)
             fun bind(item: CharacterDomain){
@@ -27,7 +28,6 @@ class AdapterForCharacters:RecyclerView.Adapter<AdapterForCharacters.ViewHolderF
                 binding.TvSpecies.text = item.species.toString()
                 binding.TvStatusItem.text = item.status.toString()
                 binding.tvItemGender.text = item.gender.toString()
-
                 Picasso.get().load(item.image).into(binding.imViewItemChatacter);
             }
     }
@@ -38,6 +38,9 @@ class AdapterForCharacters:RecyclerView.Adapter<AdapterForCharacters.ViewHolderF
     }
 
     override fun onBindViewHolder(holder: ViewHolderForCharacters, position: Int) {
+            holder.itemView.setOnClickListener {
+                onClickListener?.clickitem(list.get(position))
+            }
             holder.bind(list.get(position))
     }
 
@@ -45,4 +48,7 @@ class AdapterForCharacters:RecyclerView.Adapter<AdapterForCharacters.ViewHolderF
         return list.size
     }
 
+}
+interface onClickItemCharacterListener{
+    fun clickitem(item: CharacterDomain)
 }

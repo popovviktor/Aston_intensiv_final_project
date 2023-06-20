@@ -8,6 +8,7 @@ import com.myapplication.finalproject.featureChararcters.data.models.CharacterDa
 import com.myapplication.finalproject.featureChararcters.data.models.CharactersEntity
 import com.myapplication.finalproject.featureChararcters.data.utils.MapModelDataToDomain
 import com.myapplication.finalproject.featureChararcters.data.utils.MapModelDomainToData
+import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
 import com.myapplication.finalproject.featureChararcters.domain.repository.Repository
 import kotlinx.coroutines.Dispatchers
@@ -61,4 +62,8 @@ class RepositoryImpl @Inject constructor (private val remoteDataSource: RemoteDa
         return characters
 
     }
+
+//    override suspend fun getItemCharacter(id: Int): CharacterDomain {
+//
+//    }
 }
