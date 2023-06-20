@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.GridLayout
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -49,6 +50,7 @@ CharactersViewModel::class.java
         }
         setClickCloseFilter()
         followFilterEnable()
+        followInformationToast()
     }
     fun followCharactersUpdateForUi(){
         defaultSettingForRecyclerCharacters()
@@ -131,6 +133,19 @@ CharactersViewModel::class.java
         followVisibleEndRefresh()
         followVisibleEndNextLoadPage()
     }
+    fun followInformationToast(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.informationToast
+                    .onEach {
+                        if (it != "default"){
+                            Toast.makeText(requireActivity(),it,Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    .collect()
+            }
+        }
+    }
     fun followVisibleEndRefresh(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -190,36 +205,16 @@ CharactersViewModel::class.java
     }
 
     override fun clickitem(item: CharacterDomain) {
-        println(item)
-        val bundle = Bundle()
-        bundle.putString("key","vaullsdasdasd")
-        val fragment = DetailCharacterFragment()
-        fragment.arguments = bundle
         parentFragmentManager.saveFragmentInstanceState(this)
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container,fragment)
+            .replace(R.id.fragment_container,DetailCharacterFragment())
             .addToBackStack(null)
             .commit()
     }
     companion object {
         @JvmStatic
         fun newInstance() = CharactersFragment()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        val bundle =Bundle()
-
-
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        val layoutmanager =binding.rvForCharacters.layoutManager as GridLayoutManager
-        val position = layoutmanager.findLastVisibleItemPosition()
-        outState.putInt("pos",position)
-        super.onSaveInstanceState(outState)
     }
 
 }

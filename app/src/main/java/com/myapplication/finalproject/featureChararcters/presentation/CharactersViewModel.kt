@@ -33,6 +33,8 @@ class CharactersViewModel @Inject constructor(
     val characters:LiveData<CharactersDomain>
         get() = _characters
     private val _isFilterEnable=MutableStateFlow<Boolean>(false)
+    private val _informationToast=MutableStateFlow<String>("default")
+    val informationToast:StateFlow<String> = _informationToast.asStateFlow()
     val isFilterEnable:StateFlow<Boolean> = _isFilterEnable.asStateFlow()
     private var defultUrlForFilterFind:String? = null
     private var paramsFilterFromDB:ParamsFilterFromDb? = null
@@ -87,7 +89,7 @@ class CharactersViewModel @Inject constructor(
                        _characters.postValue(it)
                        saveInDb(it)
                    }else{
-                       println("нет интернета")
+                       _informationToast.value = "error internet"
                        getPageFromDB()
                    }
                    if (_stateEndLoadingRefresh.value!=true){
@@ -103,7 +105,7 @@ class CharactersViewModel @Inject constructor(
                     _characters.postValue(it)
                 }
                 else{
-                    println("eror internet")
+                    _informationToast.value = "error internet"
                     getPageFromDB()
 
                 }
@@ -125,7 +127,7 @@ class CharactersViewModel @Inject constructor(
                     _characters.value = it
                 }
             }else{
-                println("нет сохранненного кеша")
+                _informationToast.value = "not found in cache"
             }
         }
     }
@@ -141,12 +143,11 @@ class CharactersViewModel @Inject constructor(
     }
     fun loadNextPage(url:String){
         if (url==null||url=="null"){
-            println("дошли до конца списка")
+            _informationToast.value = "this is last page"
             _stateEndLoadingNextPage.value = true
         }else{
             viewModelScope.launch(Dispatchers.IO) {
                     getCharactersNewPageUseCase.execute(url).let {
-                    println("end loading")
                     if (it!=null){
                         _characters.value?.info?.next = it.info?.next
                         _characters.value?.results?.addAll(it.results!!)
@@ -155,7 +156,7 @@ class CharactersViewModel @Inject constructor(
                         }
                     }
                     else{
-                        println("eror internet")
+                        _informationToast.value = "Error internet"
                     }
                     _stateEndLoadingNextPage.value = true
                     if (_stateEndLoadingRefresh.value!=true && _isFilterEnable.value ==true){
