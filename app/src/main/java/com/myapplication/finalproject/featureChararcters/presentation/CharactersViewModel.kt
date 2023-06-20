@@ -43,7 +43,7 @@ class CharactersViewModel @Inject constructor(
     fun setStateLoadNextEnd(){
         _stateEndLoadingNextPage.value = false
     }
-    fun setStateLoadRefresh(){
+    fun setStateLoadRefreshDisable(){
         _stateEndLoadingRefresh.value = false
     }
     fun getDefaultUrlForFindWithFilter(name:String?, status:String?,
@@ -135,7 +135,7 @@ class CharactersViewModel @Inject constructor(
         }
     }
     fun pullToRefresh(){
-        setStateLoadRefresh()
+        //setStateLoadRefreshDisable()
         println(_isFilterEnable.value)
         if (_isFilterEnable.value==true&&defultUrlForFilterFind!=null){
             getDefaultPageWithFilter(defultUrlForFilterFind!!)

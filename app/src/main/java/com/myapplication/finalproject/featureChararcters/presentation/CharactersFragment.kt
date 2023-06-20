@@ -43,6 +43,8 @@ CharactersViewModel::class.java
         }else{
             defaultSettingForRecyclerCharacters()
         }
+        setClickCloseFilter()
+        followFilterEnable()
     }
     fun registerFragmentResultListener(){
         setFragmentResultListener(REQUEST_KEY) { key, bundle ->
@@ -51,6 +53,7 @@ CharactersViewModel::class.java
             val filterSpecies = bundle.getString(FILTER_SPECIES)
             val filterType = bundle.getString(FILTER_TYPE)
             val filterGender = bundle.getString(FILTER_GENDER)
+            binding.progressRefresh.visibility = View.VISIBLE
             viewModel.enableFilterFind()
             viewModel.getDefaultUrlForFindWithFilter(filterName,filterStatus,
             filterSpecies,filterType,filterGender)
@@ -93,11 +96,11 @@ CharactersViewModel::class.java
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(-1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
-                    binding.progressRefresh.visibility==View.GONE && binding.progressPrev.visibility==View.GONE){
+                    binding.progressRefresh.visibility==View.GONE && binding.progressNextPage.visibility==View.GONE){
                     pullToRefresh()
                 }
                 if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
-                    binding.progressPrev.visibility==View.GONE&&binding.progressRefresh.visibility==View.GONE){
+                    binding.progressNextPage.visibility==View.GONE&&binding.progressRefresh.visibility==View.GONE){
                     loadNextPageAndProgressVisible()
                 }
             }
@@ -105,7 +108,7 @@ CharactersViewModel::class.java
         binding.rvForCharacters.addOnScrollListener(listener)
     }
     fun loadNextPageAndProgressVisible(){
-        binding.progressPrev.visibility=View.VISIBLE
+        binding.progressNextPage.visibility=View.VISIBLE
         viewModel.loadNextPage(viewModel.characters.value!!.info?.next.toString())
     }
     fun pullToRefresh(){
@@ -127,7 +130,7 @@ CharactersViewModel::class.java
                 viewModel.stateEndLoadingRefresh
                     .onEach {
                         if (it==true){
-                            viewModel.setStateLoadRefresh()
+                            viewModel.setStateLoadRefreshDisable()
                             binding.progressRefresh.visibility = View.GONE
                             adapter.notifyDataSetChanged()
                         }
@@ -136,8 +139,26 @@ CharactersViewModel::class.java
             }
         }
     }
+    fun setClickCloseFilter(){
+        binding.imCloseFilterFind.setOnClickListener {
+            viewModel.resetEnableFilterFind()
+            viewModel.getDefaultPage()
+        }
+    }
     fun followFilterEnable(){
-
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.isFilterEnable
+                    .onEach {
+                        if (it == true){
+                            binding.imCloseFilterFind.visibility = View.VISIBLE
+                        }else{
+                            binding.imCloseFilterFind.visibility = View.GONE
+                        }
+                    }
+                    .collect()
+            }
+        }
     }
     fun followVisibleEndNextLoadPage(){
         lifecycleScope.launch {
@@ -146,7 +167,7 @@ CharactersViewModel::class.java
                     .onEach {
                         if (it == true){
                             viewModel.setStateLoadNextEnd()
-                            binding.progressPrev.visibility = View.GONE
+                            binding.progressNextPage.visibility = View.GONE
                             adapter.notifyDataSetChanged()
                         }
                     }
