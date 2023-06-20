@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
+import com.myapplication.finalproject.featureChararcters.domain.models.Info
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromDbUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.SaveCharactersInDbUseCase
+import com.myapplication.finalproject.featureChararcters.presentation.model.ParamsFilterFromDb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,6 +39,7 @@ class CharactersViewModel @Inject constructor(
     val isFilterEnable:StateFlow<Boolean> = _isFilterEnable.asStateFlow()
     //private val isRefreshEnable=MutableStateFlow<Boolean>(false)
     private var defultUrlForFilterFind:String? = null
+    private var paramsFilterFromDB:ParamsFilterFromDb? = null
     fun setStateLoadNextEnd(){
         _stateEndLoadingNextPage.value = false
     }
@@ -69,7 +73,8 @@ class CharactersViewModel @Inject constructor(
             urlForFindFilter.append("gender=")
             urlForFindFilter.append(gender+"&")
         }
-
+        paramsFilterFromDB = ParamsFilterFromDb(name = name,status = status,
+        species = species,type = type,gender = gender)
         defultUrlForFilterFind = urlForFindFilter.toString()
         getDefaultPageWithFilter(defultUrlForFilterFind!!)
         println(isFilterEnable)
@@ -104,6 +109,8 @@ class CharactersViewModel @Inject constructor(
                 }
                 else{
                     println("eror internet")
+                    getPageFromDB()
+
                 }
                 _stateEndLoadingNextPage.value = true
                 if (_stateEndLoadingRefresh.value!=true && _isFilterEnable.value ==true){
@@ -115,7 +122,13 @@ class CharactersViewModel @Inject constructor(
     suspend fun getPageFromDB(){
         getCharactersFromDbUseCase.execute().let {
             if (it!=null){
-                _characters.value = it
+                if (_isFilterEnable.value==true&&paramsFilterFromDB!=null){
+                    findfilterFromDB(it,paramsFilterFromDB!!).let {
+                        _characters.postValue(it)
+                    }
+                }else{
+                    _characters.value = it
+                }
             }else{
                 println("нет сохранненного кеша")
             }
@@ -158,8 +171,32 @@ class CharactersViewModel @Inject constructor(
             }
        }
     }
-    fun addNextPageFromFilter(){
-
+    fun findfilterFromDB(charactersFromDb: CharactersDomain,paramsFilter: ParamsFilterFromDb)
+    :CharactersDomain{
+        val foundCharacters = ArrayList<CharacterDomain>()
+        val info = Info(next = null, prev = null)
+        for (elem in charactersFromDb.results!!){
+            val boolFiltersItem = ArrayList<Boolean>()
+            if (paramsFilter.name!=null){
+                boolFiltersItem.add(elem.name?.lowercase().equals(paramsFilter.name.lowercase()))
+            }
+            if (paramsFilter.status!=null){
+                boolFiltersItem.add(elem.status?.lowercase().equals(paramsFilter.status.lowercase()))
+            }
+            if (paramsFilter.species!=null){
+                boolFiltersItem.add(elem.species?.lowercase().equals(paramsFilter.species.lowercase()))
+            }
+            if (paramsFilter.type!=null){
+                boolFiltersItem.add(elem.type?.lowercase().equals(paramsFilter.type.lowercase()))
+            }
+            if (paramsFilter.gender!=null){
+                boolFiltersItem.add(elem.gender?.lowercase().equals(paramsFilter.gender.lowercase()))
+            }
+            if (!boolFiltersItem.contains(false)){
+                foundCharacters.add(elem)
+            }
+        }
+        return CharactersDomain(info = info, results = foundCharacters)
     }
 
     fun resetEnableFilterFind() {
