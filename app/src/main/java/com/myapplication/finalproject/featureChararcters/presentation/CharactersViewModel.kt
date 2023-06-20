@@ -84,7 +84,7 @@ class CharactersViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             getCharactersUseCase.execute().let {
                    if (it!=null){
-                       _characters.value = it
+                       _characters.postValue(it)
                        saveInDb(it)
                    }else{
                        println("нет интернета")
@@ -128,6 +128,9 @@ class CharactersViewModel @Inject constructor(
                 println("нет сохранненного кеша")
             }
         }
+    }
+    fun nullableDefaultUrlAfterClosFilter(){
+        defultUrlForFilterFind = null
     }
     fun pullToRefresh(){
         if (_isFilterEnable.value==true&&defultUrlForFilterFind!=null){

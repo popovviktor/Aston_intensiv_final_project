@@ -2,6 +2,8 @@ package com.myapplication.finalproject.featureChararcters.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.widget.GridLayout
+import android.widget.LinearLayout
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -39,23 +41,20 @@ CharactersViewModel::class.java
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerFragmentResultListener()
+        followCharactersUpdateForUi()
         if (savedInstanceState==null){
-            if (adapter.list.size>0){
-                followCharactersUpdateForUi()
-            }else{
+            if (adapter.list.size<1){
                 getLoadDefaultPageAndFollowCharacterUpdateForUi()
             }
-        }else{
-            defaultSettingForRecyclerCharacters()
         }
         setClickCloseFilter()
         followFilterEnable()
     }
     fun followCharactersUpdateForUi(){
+        defaultSettingForRecyclerCharacters()
         viewModel.characters.observe(requireActivity(), Observer {
             if (it!=null){
-                setListInAdapter(it.results!!)
-                defaultSettingForRecyclerCharacters()
+                adapter.list= it.results!!
             }
         })
     }
@@ -98,9 +97,6 @@ CharactersViewModel::class.java
         binding.rvForCharacters.layoutManager = GridLayoutManager(activity,
             spanCountForGridLayout, RecyclerView.VERTICAL,false)
     }
-    fun setListInAdapter(characters: ArrayList<CharacterDomain>){
-        adapter.list= characters
-    }
     fun setScrollListenerForRecyclerCharacters(){
         val listener = object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -124,6 +120,7 @@ CharactersViewModel::class.java
     fun pullToRefresh(){
         binding.progressRefresh.visibility = View.VISIBLE
         viewModel.pullToRefresh()
+        adapter.notifyDataSetChanged()
     }
     fun addBottomSheetForFilter(){
         binding.btnFilter.setOnClickListener {
@@ -152,8 +149,12 @@ CharactersViewModel::class.java
     fun setClickCloseFilter(){
         binding.imCloseFilterFind.setOnClickListener {
             viewModel.resetEnableFilterFind()
-            viewModel.getDefaultPage()
+            binding.progressRefresh.visibility = View.VISIBLE
+            viewModel.pullToRefresh()
+            viewModel.nullableDefaultUrlAfterClosFilter()
+            adapter.notifyDataSetChanged()
         }
+
     }
     fun followFilterEnable(){
         lifecycleScope.launch {
@@ -204,6 +205,21 @@ CharactersViewModel::class.java
     companion object {
         @JvmStatic
         fun newInstance() = CharactersFragment()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val bundle =Bundle()
+
+
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        val layoutmanager =binding.rvForCharacters.layoutManager as GridLayoutManager
+        val position = layoutmanager.findLastVisibleItemPosition()
+        outState.putInt("pos",position)
+        super.onSaveInstanceState(outState)
     }
 
 }
