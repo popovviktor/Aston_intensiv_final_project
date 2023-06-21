@@ -119,7 +119,10 @@ CharactersViewModel::class.java
     }
     fun loadNextPageAndProgressVisible(){
         binding.progressNextPage.visibility=View.VISIBLE
-        viewModel.loadNextPage(viewModel.characters.value!!.info?.next.toString())
+        if (viewModel.characters.value!=null){
+            viewModel.loadNextPage(viewModel.characters.value!!.info?.next.toString())
+        }
+
     }
     fun pullToRefresh(){
         binding.progressRefresh.visibility = View.VISIBLE

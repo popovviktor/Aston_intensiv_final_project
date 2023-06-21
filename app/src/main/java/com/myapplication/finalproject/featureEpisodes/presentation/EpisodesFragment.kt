@@ -103,7 +103,8 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding,EpisodesViewModel>
                     pullToRefresh()
                 }
                 if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
-                    binding.progressNextPageEpisode.visibility==View.GONE&&binding.progressRefreshEpisodes.visibility==View.GONE){
+                    binding.progressNextPageEpisode.visibility==View.GONE&&binding.progressRefreshEpisodes.visibility==View.GONE&&
+                        viewModel.episodes.value!=null){
                     loadNextPageAndProgressVisible()
                 }
             }

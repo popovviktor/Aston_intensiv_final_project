@@ -104,7 +104,8 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
                     pullToRefresh()
                 }
                 if (!recyclerView.canScrollVertically(1)&&newState == RecyclerView.SCROLL_STATE_IDLE&&
-                    binding.progressNextPage2.visibility==View.GONE&&binding.progressRefresh2.visibility==View.GONE){
+                    binding.progressNextPage2.visibility==View.GONE&&binding.progressRefresh2.visibility==View.GONE&&
+                        viewModel.locations.value!=null){
                     loadNextPageAndProgressVisible()
                 }
             }
