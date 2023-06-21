@@ -1,17 +1,17 @@
-package com.myapplication.finalproject.featureLocation.presentation
+package com.myapplication.finalproject.featureEpisodes.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapplication.finalproject.featureLocation.domain.models.InfoLocationPageDomain
-import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
-import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromDBUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromWebUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsNewPageUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.SaveLocationsInDBUseCase
-import com.myapplication.finalproject.featureLocation.presentation.models.ParamsFilterLocations
+import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
+import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodesDomain
+import com.myapplication.finalproject.featureEpisodes.domain.models.InfoEpisodesDomain
+import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesFromDBUseCase
+import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesFromWebUseCase
+import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesNewPageUseCase
+import com.myapplication.finalproject.featureEpisodes.domain.usecase.SaveEpisodesInDBUseCase
+import com.myapplication.finalproject.featureEpisodes.presentation.models.ParamsFilterEpisodesForDBFind
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,48 +19,45 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LocationsViewModel @Inject constructor(
-    private val getLocationsUseCase: GetLocationsFromWebUseCase,
-    private val saveLocationsInDbUseCase: SaveLocationsInDBUseCase,
-    private val getLocationsFromDbUseCase: GetLocationsFromDBUseCase,
-    private val getLocationsNewPageUseCase: GetLocationsNewPageUseCase
+class EpisodesViewModel @Inject constructor(
+    private val getEpisodesUseCase: GetEpisodesFromWebUseCase,
+    private val saveEpisodesInDbUseCase: SaveEpisodesInDBUseCase,
+    private val getEpisodesFromDbUseCase: GetEpisodesFromDBUseCase,
+    private val getEpisodesNewPageUseCase: GetEpisodesNewPageUseCase
 ):ViewModel() {
+
 
     private val _stateEndLoadingRefresh= MutableStateFlow<Boolean>(false)
     val stateEndLoadingRefresh: StateFlow<Boolean> = _stateEndLoadingRefresh.asStateFlow()
     private val _stateEndLoadingNextPage = MutableStateFlow<Boolean>(false)
     val stateEndLoadingNextPage: StateFlow<Boolean> = _stateEndLoadingNextPage.asStateFlow()
-    private val _locations = MutableLiveData<LocationsDomain>()
-    val locations: LiveData<LocationsDomain>
-        get() = _locations
+    private val _episodes = MutableLiveData<EpisodesDomain>()
+    val episodes: LiveData<EpisodesDomain>
+        get() = _episodes
     private val _isFilterEnable= MutableStateFlow<Boolean>(false)
     private val _informationToast= MutableStateFlow<String>("default")
     val informationToast: StateFlow<String> = _informationToast.asStateFlow()
     val isFilterEnable: StateFlow<Boolean> = _isFilterEnable.asStateFlow()
     private var defultUrlForFilterFind:String? = null
-    private var paramsFilterFromDBLocations: ParamsFilterLocations? = null
+    private var paramsFilterFromDBEpisodes: ParamsFilterEpisodesForDBFind? = null
     fun setStateLoadNextEnd(){
         _stateEndLoadingNextPage.value = false
     }
     fun setStateLoadRefreshDisable(){
         _stateEndLoadingRefresh.value = false
     }
-    fun getDefaultUrlForFindWithFilter(params:ParamsFilterLocations){
-        val urlForFindFilter:StringBuilder = StringBuilder("https://rickandmortyapi.com/api/location/?")
+    fun getDefaultUrlForFindWithFilter(params: ParamsFilterEpisodesForDBFind){
+        val urlForFindFilter:StringBuilder = StringBuilder("https://rickandmortyapi.com/api/episode/?")
         if (params.name!=null){
             urlForFindFilter.append("name=")
             urlForFindFilter.append(params.name+"&")
         }
-        if (params.type!=null){
-            urlForFindFilter.append("type=")
-            urlForFindFilter.append(params.type+"&")
-        }
-        if (params.dimension!=null){
-            urlForFindFilter.append("dimension=")
-            urlForFindFilter.append(params.dimension+"&")
+        if (params.episode!=null){
+            urlForFindFilter.append("episode=")
+            urlForFindFilter.append(params.episode+"&")
         }
 
-        paramsFilterFromDBLocations = ParamsFilterLocations(params.name,params.type,params.dimension)
+        paramsFilterFromDBEpisodes = ParamsFilterEpisodesForDBFind(params.name,params.episode)
         defultUrlForFilterFind = urlForFindFilter.toString()
         getDefaultPageWithFilter(defultUrlForFilterFind!!)
         println(isFilterEnable)
@@ -72,9 +69,9 @@ class LocationsViewModel @Inject constructor(
     }
     fun getDefaultPage(){
         viewModelScope.launch(Dispatchers.Main) {
-            getLocationsUseCase.execute().let {
+            getEpisodesUseCase.execute().let {
                 if (it!=null){
-                    _locations.postValue(it)
+                    _episodes.postValue(it)
                     saveInDb(it)
                 }else{
                     _informationToast.value = "error internet"
@@ -88,9 +85,9 @@ class LocationsViewModel @Inject constructor(
     }
     fun getDefaultPageWithFilter(urlDefaultPageWithFilter:String){
         viewModelScope.launch(Dispatchers.IO) {
-            getLocationsNewPageUseCase.execute(urlDefaultPageWithFilter).let {
+            getEpisodesNewPageUseCase.execute(urlDefaultPageWithFilter).let {
                 if (it!=null){
-                    _locations.postValue(it)
+                    _episodes.postValue(it)
                 }
                 else{
                     _informationToast.value = "error internet"
@@ -105,14 +102,14 @@ class LocationsViewModel @Inject constructor(
         }
     }
     suspend fun getPageFromDB(){
-        getLocationsFromDbUseCase.execute().let {
+        getEpisodesFromDbUseCase.execute().let {
             if (it!=null){
-                if (_isFilterEnable.value==true&&paramsFilterFromDBLocations!=null){
-                    findfilterFromDB(it,paramsFilterFromDBLocations!!).let {
-                        _locations.postValue(it)
+                if (_isFilterEnable.value==true&&paramsFilterFromDBEpisodes!=null){
+                    findfilterFromDB(it,paramsFilterFromDBEpisodes!!).let {
+                        _episodes.postValue(it)
                     }
                 }else{
-                    _locations.value = it
+                    _episodes.value = it
                 }
             }else{
                 _informationToast.value = "not found in cache"
@@ -135,10 +132,10 @@ class LocationsViewModel @Inject constructor(
             _stateEndLoadingNextPage.value = true
         }else{
             viewModelScope.launch(Dispatchers.IO) {
-                getLocationsNewPageUseCase.execute(url).let {
+                getEpisodesNewPageUseCase.execute(url).let {
                     if (it!=null){
-                        _locations.value?.info?.next = it.info?.next
-                        _locations.value?.results?.addAll(it.results!!)
+                        _episodes.value?.info?.next = it.info?.next
+                        _episodes.value?.results?.addAll(it.results!!)
                         if (_isFilterEnable.value!=true){
                             saveInDb(it)
                         }
@@ -155,35 +152,32 @@ class LocationsViewModel @Inject constructor(
             }
         }
     }
-    fun findfilterFromDB(locationsFromDb: LocationsDomain, paramsFilter: ParamsFilterLocations)
-            : LocationsDomain {
-        val foundCharacters = ArrayList<LocationDomain>()
-        val info = InfoLocationPageDomain(next = null, prev = null)
-        for (elem in locationsFromDb.results!!){
+    fun findfilterFromDB(episodesFromDb: EpisodesDomain, paramsFilter: ParamsFilterEpisodesForDBFind)
+            : EpisodesDomain {
+        val foundCharacters = ArrayList<EpisodeDomain>()
+        val info = InfoEpisodesDomain(next = null, prev = null)
+        for (elem in episodesFromDb.results!!){
             val boolFiltersItem = ArrayList<Boolean>()
             if (paramsFilter.name!=null){
                 boolFiltersItem.add(elem.name?.lowercase()!!.contains(paramsFilter.name.lowercase()))
             }
-            if (paramsFilter.type!=null){
-                boolFiltersItem.add(elem.type?.lowercase()!!.contains(paramsFilter.type.lowercase()))
-            }
-            if (paramsFilter.dimension!=null){
-                boolFiltersItem.add(elem.dimension?.lowercase()!!.contains(paramsFilter.dimension.lowercase()))
+            if (paramsFilter.episode!=null){
+                boolFiltersItem.add(elem.episode?.lowercase()!!.contains(paramsFilter.episode.lowercase()))
             }
             if (!boolFiltersItem.contains(false)){
                 foundCharacters.add(elem)
             }
         }
-        return LocationsDomain(info = info, results = foundCharacters)
+        return EpisodesDomain(info = info, results = foundCharacters)
     }
     fun resetEnableFilterFind() {
         if (_isFilterEnable.value==true){
             _isFilterEnable.value = false
         }
     }
-    fun saveInDb(locationsDomain: LocationsDomain){
+    fun saveInDb(episodesDomain: EpisodesDomain){
         viewModelScope.launch(Dispatchers.IO){
-            saveLocationsInDbUseCase.execute(locationsDomain)
+            saveEpisodesInDbUseCase.execute(episodesDomain)
         }
     }
 }

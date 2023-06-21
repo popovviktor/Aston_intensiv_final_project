@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:name="com.myapplication.finalproject.featureLocation.presentation.LocationsFragment"
+        android:name="com.myapplication.finalproject.featureEpisodes.presentation.EpisodesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
