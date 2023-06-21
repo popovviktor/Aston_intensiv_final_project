@@ -1,26 +1,26 @@
 package com.myapplication.finalproject.featureLocation.data.utils
 
 import com.myapplication.finalproject.featureLocation.data.models.InfoLocationPageData
-import com.myapplication.finalproject.featureLocation.data.models.LocationsEntity
 import com.myapplication.finalproject.featureLocation.data.models.LocationData
-import com.myapplication.finalproject.featureLocation.domain.models.InfoLocationPageDomain
+import com.myapplication.finalproject.featureLocation.data.models.LocationsEntity
 import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
 
-class MapModelDomainToDataLocation {
-    fun mapToData(locationsDomain: LocationsDomain):LocationsEntity{
+class MapModelDomainToDataLocations {
+    fun mapToData(locationsDomain: LocationsDomain): LocationsEntity {
         val locationsEntity = LocationsEntity()
-        val infoData = mapToDataInfo(locationsDomain.info)
+        val infoData = mapToDataInfo(locationsDomain)
         val resultsData = mapToDataResults(locationsDomain)
         locationsEntity.info = infoData
         locationsEntity.results = resultsData
         return locationsEntity
     }
-    fun mapToDataInfo(info:InfoLocationPageDomain):InfoLocationPageData{
+    fun mapToDataInfo(locationsDomain: LocationsDomain): InfoLocationPageData {
+        val info = locationsDomain.info
         val infoLocationPageData = InfoLocationPageData()
-        infoLocationPageData.count = info.count
-        infoLocationPageData.pages = info.pages
-        infoLocationPageData.next = info.next
-        infoLocationPageData.prev = info.prev
+        infoLocationPageData.count = info?.count
+        infoLocationPageData.pages = info?.pages
+        infoLocationPageData.next = info?.next
+        infoLocationPageData.prev = info?.prev
         return infoLocationPageData
     }
     fun mapToDataResults(locationsDomain: LocationsDomain):ArrayList<LocationData>{

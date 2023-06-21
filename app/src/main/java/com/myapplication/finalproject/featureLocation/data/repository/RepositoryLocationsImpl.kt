@@ -1,11 +1,13 @@
 package com.myapplication.finalproject.featureLocation.data.repository
 
-import com.myapplication.finalproject.featureChararcters.data.api.RemoteDataSourceCharacters
-import com.myapplication.finalproject.featureChararcters.data.dao.CharactersDao
-import com.myapplication.finalproject.featureChararcters.data.utils.MapModelDomainToDataCharacters
 import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
+import com.myapplication.finalproject.featureLocation.data.utils.MapModelDataToDomainLocations
+import com.myapplication.finalproject.featureLocation.data.utils.*
+
 import com.myapplication.finalproject.featureLocation.data.api.RemoteDataSourceLocations
 import com.myapplication.finalproject.featureLocation.data.dao.LocationsDao
+import com.myapplication.finalproject.featureLocation.data.models.LocationData
+import com.myapplication.finalproject.featureLocation.data.models.LocationsEntity
 import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
 import com.myapplication.finalproject.featureLocation.domain.repository.RepositoryLocations
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,7 @@ class RepositoryLocationsImpl @Inject constructor (private val remoteDataSource:
         var locations: LocationsDomain? = null
         try {
             locations = remoteDataSource.getLocations().body()
-            dao.clearTableCharacter()
+            dao.clearTableLocation()
         }catch (ex:java.lang.Exception){
         }
 
@@ -25,14 +27,37 @@ class RepositoryLocationsImpl @Inject constructor (private val remoteDataSource:
     }
 
     override suspend fun saveDataLocationsInDB(locationsDomain: LocationsDomain) {
-
+        val mapper = MapModelDomainToDataLocations()
+        val modelDAta = mapper.mapToData(locationsDomain)
+        withContext(Dispatchers.IO){
+            if (modelDAta!=null){
+                dao.clearTableLocationPageINfo()
+                dao.insert(modelDAta.info!!)
+                for (elem in (modelDAta.results)){
+                    dao.insertLocation(elem)
+                }
+            }
+        }
     }
 
     override suspend fun getLocationsFromDB(): LocationsDomain? {
-        TODO("Not yet implemented")
+        val dataInfo = dao.getInfo()
+        val data = dao.getAllLocations()
+        val mapper = MapModelDataToDomainLocations()
+        val locationsDomain = mapper.mapToDomain(
+            LocationsEntity(info = dataInfo,
+                results = data as ArrayList<LocationData>
+            )
+        )
+        return locationsDomain
     }
 
     override suspend fun getNewPageLocationFromWeb(urlNewPage: String): LocationsDomain? {
-        TODO("Not yet implemented")
+        var locations: LocationsDomain? = null
+        try {
+            val newPage = remoteDataSource.getLocationsNewPage(urlNewPage)
+            locations = newPage.body()
+        }catch (ex:java.lang.Exception){}
+        return locations
     }
 }

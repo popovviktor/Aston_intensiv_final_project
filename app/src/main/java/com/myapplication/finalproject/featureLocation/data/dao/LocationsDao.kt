@@ -13,13 +13,13 @@ interface LocationsDao {
     fun insert(infoLocationPageData: InfoLocationPageData)
 
     @Insert(entity = LocationData::class)
-    fun insertCharacter(locationData: LocationData)
+    fun insertLocation(locationData: LocationData)
     @Query("SELECT * FROM info_location_page")
     fun getInfo(): InfoLocationPageData
     @Query("SELECT * FROM table_location")
-    fun getAllCharacters():List<LocationData>
+    fun getAllLocations():List<LocationData>
     @Query("DELETE FROM table_location")
-    fun clearTableCharacter()
+    fun clearTableLocation()
     @Query("DELETE FROM info_location_page")
-    fun clearTableCharacterPageINfo()
+    fun clearTableLocationPageINfo()
 }
