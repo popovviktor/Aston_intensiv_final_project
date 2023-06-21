@@ -5,7 +5,6 @@ import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocation
 import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromWebUseCase
 import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsNewPageUseCase
 import com.myapplication.finalproject.featureLocation.domain.usecase.SaveLocationsInDBUseCase
-import dagger.Module
 import javax.inject.Inject
 
 class DetailLocationViewModel @Inject constructor(

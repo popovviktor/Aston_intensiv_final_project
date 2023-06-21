@@ -35,9 +35,6 @@ private val adapter = AdapterForCharacters()
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
 CharactersViewModel::class.java
 ),onClickItemCharacterListener{
-    override fun createBinding(): FragmentCharactersBinding {
-        return FragmentCharactersBinding.inflate(layoutInflater)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,9 +71,7 @@ CharactersViewModel::class.java
         }
     }
 
-    override fun initDaggerComponent(function: () -> Unit) {
-        CharactersComponent.init(requireActivity()).inject(this)
-    }
+
     fun getLoadDefaultPageAndFollowCharacterUpdateForUi(){
         followCharactersUpdateForUi()
         viewModel.getDefaultPage()
@@ -216,5 +211,12 @@ CharactersViewModel::class.java
         @JvmStatic
         fun newInstance() = CharactersFragment()
     }
+    override fun initDaggerComponent(function: () -> Unit) {
+        CharactersComponent.init(requireActivity()).inject(this)
+    }
+    override fun createBinding(): FragmentCharactersBinding {
+        return FragmentCharactersBinding.inflate(layoutInflater)
+    }
+
 
 }

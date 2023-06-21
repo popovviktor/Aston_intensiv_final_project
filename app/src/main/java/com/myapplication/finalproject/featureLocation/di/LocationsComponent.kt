@@ -11,6 +11,7 @@ import com.myapplication.finalproject.featureChararcters.di.DomainModuleCharacte
 import com.myapplication.finalproject.featureChararcters.presentation.CharactersFragment
 import com.myapplication.finalproject.featureChararcters.presentation.DetailCharacterFragment
 import com.myapplication.finalproject.featureLocation.presentation.DetailLocationFragment
+import com.myapplication.finalproject.featureLocation.presentation.LocationsFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,7 +21,7 @@ import javax.inject.Singleton
             DomainModuleLocations::class, DataModuleLocations::class])
 interface LocationsComponent {
     fun inject(mainActivity: MainActivity)
-    fun inject(locattionFragment: DetailCharacterFragment)
+    fun inject(locationsFragment: LocationsFragment)
     fun inject(detailLocationFragment: DetailLocationFragment)
     @Component.Factory
     interface Factory{
