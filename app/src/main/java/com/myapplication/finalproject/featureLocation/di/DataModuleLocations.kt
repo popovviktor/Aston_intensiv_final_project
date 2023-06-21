@@ -1,4 +1,4 @@
-package com.myapplication.finalproject.featureChararcters.di
+package com.myapplication.finalproject.featureLocation.di
 
 import android.content.Context
 import com.google.gson.Gson
@@ -8,29 +8,33 @@ import com.myapplication.finalproject.featureChararcters.data.api.ApiServiceChar
 import com.myapplication.finalproject.featureChararcters.data.api.RemoteDataSourceCharacters
 import com.myapplication.finalproject.featureChararcters.data.repository.RepositoryCharactersImpl
 import com.myapplication.finalproject.featureChararcters.domain.repository.RepositoryCharacters
+import com.myapplication.finalproject.featureLocation.data.AppDb.AppDataBaseLocations
+import com.myapplication.finalproject.featureLocation.data.api.ApiServiceLocations
+import com.myapplication.finalproject.featureLocation.data.api.RemoteDataSourceLocations
+import com.myapplication.finalproject.featureLocation.data.repository.RepositoryLocationsImpl
+import com.myapplication.finalproject.featureLocation.domain.repository.RepositoryLocations
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 import javax.inject.Singleton
 
 @Module
-class DataModule() {
+class DataModuleLocations {
     @Provides
-    fun provideAppDataBase(context: Context): AppDataBaseCharacters {
-        return AppDataBaseCharacters.getAppDataBase(context.applicationContext)
+    fun provideAppDataBase(context: Context): AppDataBaseLocations {
+        return AppDataBaseLocations.getAppDataBase(context.applicationContext)
     }
     @Singleton
     @Provides
-    fun provideGson():Gson{
+    fun provideGson(): Gson {
         return GsonBuilder().create()
     }
     @Singleton
     @Provides
-    fun provideGsonConverterFactory(gson: Gson):GsonConverterFactory{
+    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory {
         return GsonConverterFactory.create(gson)
     }
     @Provides
@@ -56,19 +60,17 @@ class DataModule() {
     }
     @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit): ApiServiceCharacters {
-        return retrofit.create(ApiServiceCharacters::class.java)
+    fun provideApi(retrofit: Retrofit): ApiServiceLocations {
+        return retrofit.create(ApiServiceLocations::class.java)
     }
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: RemoteDataSourceCharacters, dao: AppDataBaseCharacters): RepositoryCharacters {
-        return RepositoryCharactersImpl(remoteDataSource,dao.getCharactersDao())
+    fun provideRepository(remoteDataSource: RemoteDataSourceLocations, dao: AppDataBaseLocations): RepositoryLocations {
+        return RepositoryLocationsImpl(remoteDataSource,dao.getLocationsDao())
     }
     @Singleton
     @Provides
-    fun provideRemoteDataSource(apiService: ApiServiceCharacters): RemoteDataSourceCharacters {
-        return RemoteDataSourceCharacters(apiService)
+    fun provideRemoteDataSource(apiService: ApiServiceLocations): RemoteDataSourceLocations {
+        return RemoteDataSourceLocations(apiService)
     }
-
-
 }

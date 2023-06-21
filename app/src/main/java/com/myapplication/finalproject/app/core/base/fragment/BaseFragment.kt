@@ -28,7 +28,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     override fun onAttach(context: Context) {
         super.onAttach(context)
         initDaggerComponent(){
-            (requireActivity().applicationContext as App).appComponent()
+            (requireActivity().applicationContext as App).charactersComponent()
         }
         _viewModel = ViewModelProvider(this, viewModelFactory)[viewModelClass]
     }

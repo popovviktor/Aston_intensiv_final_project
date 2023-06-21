@@ -10,7 +10,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DomainModule {
+class DomainModuleCharacters {
     @Singleton
     @Provides
     fun providesGetCharactersUseCase(repository: RepositoryCharacters): GetCharactersFromWebUseCase {

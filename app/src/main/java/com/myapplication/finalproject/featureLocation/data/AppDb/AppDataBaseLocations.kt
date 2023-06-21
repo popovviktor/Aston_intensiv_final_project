@@ -21,7 +21,7 @@ abstract class AppDataBaseLocations: RoomDatabase() {
         fun getAppDataBase(context: Context): AppDataBaseLocations{
             if (db_instance ==null){
                 db_instance = Room.databaseBuilder<AppDataBaseLocations>(
-                    context.applicationContext, AppDataBaseLocations::class.java,"app_db"
+                    context.applicationContext, AppDataBaseLocations::class.java,"app_db2"
                 )
                     .allowMainThreadQueries()
                     .build()

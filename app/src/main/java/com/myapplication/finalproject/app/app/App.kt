@@ -2,9 +2,11 @@ package com.myapplication.finalproject.app.app
 
 
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
+import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 
 
 interface App {
 
-    fun appComponent(): CharactersComponent
+    fun charactersComponent(): CharactersComponent
+    fun locationsComponent():LocationsComponent
 }

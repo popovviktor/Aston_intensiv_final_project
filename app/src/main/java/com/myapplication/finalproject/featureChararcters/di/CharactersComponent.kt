@@ -11,7 +11,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ViewModelFactoryModule::class, CharactersViewModelModule::class, DomainModule::class, DataModule::class])
+@Component(modules = [ViewModelFactoryModule::class, CharactersViewModelModule::class,
+            DomainModuleCharacters::class, DataModuleCharacters::class])
 interface CharactersComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(charactersFragment: CharactersFragment)
