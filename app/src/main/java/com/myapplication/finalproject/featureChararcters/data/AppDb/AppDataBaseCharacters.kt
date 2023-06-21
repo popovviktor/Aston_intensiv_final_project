@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import com.myapplication.finalproject.featureChararcters.data.dao.CharactersDao
 import com.myapplication.finalproject.featureChararcters.data.models.CharacterData
 import com.myapplication.finalproject.featureChararcters.data.models.InfoData
-import com.myapplication.finalproject.featureChararcters.data.models.LocationData
+import com.myapplication.finalproject.featureChararcters.data.models.LocationDataForCharacterElements
 import com.myapplication.finalproject.featureChararcters.data.models.OriginData
 
-@Database(version = 1, entities = [CharacterData::class, InfoData::class, OriginData::class, LocationData::class], exportSchema = false)
+@Database(version = 1, entities = [CharacterData::class, InfoData::class, OriginData::class, LocationDataForCharacterElements::class], exportSchema = false)
 abstract class AppDataBaseCharacters:RoomDatabase() {
     abstract fun getCharactersDao(): CharactersDao
 

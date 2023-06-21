@@ -27,7 +27,7 @@ class MapModelDomainToDataCharacters {
     }
     fun mapChatacterToData(characterDomain: CharacterDomain): CharacterData {
         val mapOriginToData = OriginData()
-        val mapLocationToData = LocationData()
+        val mapLocationToData = LocationDataForCharacterElements()
         val mapCharacterToData = CharacterData()
         mapOriginToData.name = characterDomain.origin?.name
         mapOriginToData.url = characterDomain.origin?.url

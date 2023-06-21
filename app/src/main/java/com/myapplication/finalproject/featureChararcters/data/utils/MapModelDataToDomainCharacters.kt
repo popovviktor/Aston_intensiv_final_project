@@ -3,7 +3,7 @@ package com.myapplication.finalproject.featureChararcters.data.utils
 
 import com.myapplication.finalproject.featureChararcters.data.models.CharacterData
 import com.myapplication.finalproject.featureChararcters.data.models.CharactersEntity
-import com.myapplication.finalproject.featureChararcters.data.models.LocationData
+import com.myapplication.finalproject.featureChararcters.data.models.LocationDataForCharacterElements
 import com.myapplication.finalproject.featureChararcters.data.models.OriginData
 import com.myapplication.finalproject.featureChararcters.domain.models.*
 
@@ -50,7 +50,7 @@ class MapModelDataToDomainCharacters {
             url = originData.url
         )
     }
-    fun mapToDomainLocation(locationData: LocationData): Location {
+    fun mapToDomainLocation(locationData: LocationDataForCharacterElements): Location {
         return Location(
             name = locationData.name,
             url = locationData.url

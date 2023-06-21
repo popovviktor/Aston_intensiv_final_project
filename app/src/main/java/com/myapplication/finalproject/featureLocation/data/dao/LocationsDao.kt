@@ -4,20 +4,22 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.myapplication.finalproject.featureChararcters.data.models.CharacterData
 import com.myapplication.finalproject.featureChararcters.data.models.InfoData
+import com.myapplication.finalproject.featureLocation.data.models.InfoLocationPageData
+import com.myapplication.finalproject.featureLocation.data.models.LocationData
 
 @androidx.room.Dao
 interface LocationsDao {
-    @Insert(entity = InfoData::class)
-    fun insert(infoData: InfoData)
+    @Insert(entity = InfoLocationPageData::class)
+    fun insert(infoLocationPageData: InfoLocationPageData)
 
-    @Insert(entity = CharacterData::class)
-    fun insertCharacter(characterData: CharacterData)
-    @Query("SELECT * FROM info_character_page")
-    fun getInfo(): InfoData
-    @Query("SELECT * FROM table_character")
-    fun getAllCharacters():List<CharacterData>
-    @Query("DELETE FROM table_character")
+    @Insert(entity = LocationData::class)
+    fun insertCharacter(locationData: LocationData)
+    @Query("SELECT * FROM info_location_page")
+    fun getInfo(): InfoLocationPageData
+    @Query("SELECT * FROM table_location")
+    fun getAllCharacters():List<LocationData>
+    @Query("DELETE FROM table_location")
     fun clearTableCharacter()
-    @Query("DELETE FROM info_character_page")
+    @Query("DELETE FROM info_location_page")
     fun clearTableCharacterPageINfo()
 }

@@ -38,7 +38,7 @@ data class OriginData (
         onDelete = ForeignKey.CASCADE
     ))
 )
-data class LocationData (
+data class LocationDataForCharacterElements (
     @PrimaryKey
     @ColumnInfo("id_location")var id_character:Int? =0,
     @ColumnInfo("name_location")var name : String? = null,
@@ -58,7 +58,7 @@ data class CharacterData(
     @Embedded
     var origin   : OriginData?       = OriginData(),
     @Embedded
-    var location : LocationData?     = LocationData(),
+    var location : LocationDataForCharacterElements?     = LocationDataForCharacterElements(),
     var image    : String?           = null,
     var episode  : String?           = null,
     var url      : String?           = null,
