@@ -23,9 +23,9 @@ class AdapterForLocations: RecyclerView.Adapter<AdapterForLocations.ViewHolderFo
     class ViewHolderForLocations(item: View): RecyclerView.ViewHolder(item) {
         private val binding = ItemForLocationsBinding.bind(item)
         fun bind(item: LocationDomain){
-            binding.namelocation.text = item.name
-
-
+            binding.nameLocation.text = item.name
+            binding.typeLocation.text = item.type
+            binding.dimesionLocation.text= item.dimension
         }
     }
 

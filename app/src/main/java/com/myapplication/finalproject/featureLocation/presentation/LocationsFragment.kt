@@ -17,6 +17,7 @@ import com.myapplication.finalproject.featureChararcters.presentation.*
 import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.presentation.adapter.AdapterForLocations
+import com.myapplication.finalproject.featureLocation.presentation.adapter.SpaceItemDecorationLocations
 import com.myapplication.finalproject.featureLocation.presentation.adapter.onClickItemLocationListener
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -74,6 +75,11 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
         addBottomSheetForFilter()
         followVisibleEndProgressBarLoad()
         setScrollListenerForRecyclerCharacters()
+        initAddItemDecorations()
+    }
+    fun initAddItemDecorations(){
+        binding.rvForLocations.addItemDecoration(SpaceItemDecorationLocations(5))
+
     }
     fun setLayoutManagerInRecycler(){
         val orientation = requireActivity().resources.configuration.orientation

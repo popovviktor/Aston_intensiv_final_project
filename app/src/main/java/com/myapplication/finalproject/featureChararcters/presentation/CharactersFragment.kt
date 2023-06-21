@@ -18,7 +18,9 @@ import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
+import com.myapplication.finalproject.featureChararcters.presentation.adapter.SpaceItemDecorationCharacters
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.onClickItemCharacterListener
+import com.myapplication.finalproject.featureLocation.presentation.adapter.SpaceItemDecorationLocations
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -84,6 +86,11 @@ CharactersViewModel::class.java
         addBottomSheetForFilter()
         followVisibleEndProgressBarLoad()
         setScrollListenerForRecyclerCharacters()
+        initAddItemDecorations()
+    }
+    fun initAddItemDecorations(){
+        binding.rvForCharacters.addItemDecoration(SpaceItemDecorationCharacters(5))
+
     }
     fun setLayoutManagerInRecycler(){
         val orientation = requireActivity().resources.configuration.orientation
