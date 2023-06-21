@@ -1,10 +1,7 @@
 package com.myapplication.finalproject.featureChararcters.di
 
 import com.myapplication.finalproject.featureChararcters.domain.repository.RepositoryCharacters
-import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromDbUseCase
-import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
-import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersFromWebUseCase
-import com.myapplication.finalproject.featureChararcters.domain.usecase.SaveCharactersInDbUseCase
+import com.myapplication.finalproject.featureChararcters.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -31,5 +28,9 @@ class DomainModuleCharacters {
     fun provideGetCharactersNewPage(repository: RepositoryCharacters): GetCharactersNewPageUseCase {
         return GetCharactersNewPageUseCase(repository = repository)
     }
-
+    @Singleton
+    @Provides
+    fun providesGetCharacter(repository: RepositoryCharacters): GetCharacterWebUseCase {
+        return GetCharacterWebUseCase(repository = repository)
+    }
 }

@@ -1,16 +1,27 @@
 package com.myapplication.finalproject.featureEpisodes.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesFromDBUseCase
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesFromWebUseCase
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesNewPageUseCase
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.SaveEpisodesInDBUseCase
+import androidx.lifecycle.viewModelScope
+import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
+import com.myapplication.finalproject.featureEpisodes.domain.usecase.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailEpisodeViewModel@Inject constructor(
-    private val getEpisodesUseCase: GetEpisodesFromWebUseCase,
-    private val saveEpisodesInDbUseCase: SaveEpisodesInDBUseCase,
-    private val getEpisodesFromDbUseCase: GetEpisodesFromDBUseCase,
-    private val getEpisodesNewPageUseCase: GetEpisodesNewPageUseCase
+    private val getEpisode:GetEpisodeFromWebUseCase
 ):ViewModel() {
+    private val _episode = MutableLiveData<EpisodeDomain>()
+    val episode: LiveData<EpisodeDomain>
+        get() = _episode
+    fun startLoadDetailEpisode(url:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            getEpisode.execute(url).let {
+                if (it!=null){
+                    _episode.postValue(it)
+                }
+            }
+        }}
 }

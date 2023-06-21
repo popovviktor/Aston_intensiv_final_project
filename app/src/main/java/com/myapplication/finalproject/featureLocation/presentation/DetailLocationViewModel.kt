@@ -1,16 +1,28 @@
 package com.myapplication.finalproject.featureLocation.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromDBUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromWebUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsNewPageUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.SaveLocationsInDBUseCase
+import androidx.lifecycle.viewModelScope
+import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
+import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
+import com.myapplication.finalproject.featureLocation.domain.usecase.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailLocationViewModel @Inject constructor(
-    private val getLocationsUseCase: GetLocationsFromWebUseCase,
-    private val saveLocationsInDbUseCase: SaveLocationsInDBUseCase,
-    private val getLocationsFromDbUseCase: GetLocationsFromDBUseCase,
-    private val getLocationsNewPageUseCase: GetLocationsNewPageUseCase
+    private val getLocation:GetLocationWebUseCase
 ):ViewModel() {
+    private val _location = MutableLiveData<LocationDomain>()
+    val location: LiveData<LocationDomain>
+        get() = _location
+    fun startLoadDetailLocation(url:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            getLocation.execute(url).let {
+                if (it!=null){
+                    _location.postValue(it)
+                }
+            }
+        }}
 }

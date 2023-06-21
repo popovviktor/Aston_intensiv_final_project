@@ -6,6 +6,7 @@ import com.myapplication.finalproject.featureChararcters.data.models.CharacterDa
 import com.myapplication.finalproject.featureChararcters.data.models.CharactersEntity
 import com.myapplication.finalproject.featureChararcters.data.utils.MapModelDataToDomainCharacters
 import com.myapplication.finalproject.featureChararcters.data.utils.MapModelDomainToDataCharacters
+import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
 import com.myapplication.finalproject.featureChararcters.domain.repository.RepositoryCharacters
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +59,15 @@ class RepositoryCharactersImpl @Inject constructor (private val remoteDataSource
         }catch (ex:java.lang.Exception){}
         return characters
 
+    }
+
+    override suspend fun getCharacterWebUseCase(urlNewPage: String): CharacterDomain? {
+        var character: CharacterDomain? = null
+        try {
+            val newPage = remoteDataSource.getCharacter(urlNewPage)
+            character = newPage.body()
+        }catch (ex:java.lang.Exception){}
+        return character
     }
 
 //    override suspend fun getItemCharacter(id: Int): CharacterDomain {

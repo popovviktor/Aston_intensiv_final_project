@@ -8,6 +8,7 @@ import com.myapplication.finalproject.featureLocation.data.api.RemoteDataSourceL
 import com.myapplication.finalproject.featureLocation.data.dao.LocationsDao
 import com.myapplication.finalproject.featureLocation.data.models.LocationData
 import com.myapplication.finalproject.featureLocation.data.models.LocationsEntity
+import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
 import com.myapplication.finalproject.featureLocation.domain.repository.RepositoryLocations
 import kotlinx.coroutines.Dispatchers
@@ -59,5 +60,14 @@ class RepositoryLocationsImpl @Inject constructor (private val remoteDataSource:
             locations = newPage.body()
         }catch (ex:java.lang.Exception){}
         return locations
+    }
+
+    override suspend fun getLocationWeb(url: String): LocationDomain? {
+        var location: LocationDomain? = null
+        try {
+            val loadLocation = remoteDataSource.getLocation(url)
+            location = loadLocation.body()
+        }catch (ex:java.lang.Exception){}
+        return location
     }
 }

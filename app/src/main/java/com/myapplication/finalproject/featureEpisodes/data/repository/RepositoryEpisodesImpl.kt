@@ -6,6 +6,7 @@ import com.myapplication.finalproject.featureEpisodes.data.models.EpisodeData
 import com.myapplication.finalproject.featureEpisodes.data.models.EpisodesEntity
 import com.myapplication.finalproject.featureEpisodes.data.utils.MapModelDataToDomainEpisodes
 import com.myapplication.finalproject.featureEpisodes.data.utils.MapModelDomainToDataEpisodes
+import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
 import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodesDomain
 import com.myapplication.finalproject.featureEpisodes.domain.repository.RepositoryEpisodes
 import kotlinx.coroutines.Dispatchers
@@ -58,5 +59,14 @@ class RepositoryEpisodesImpl @Inject constructor (private val remoteDataSource: 
             episodes = newPage.body()
         }catch (ex:java.lang.Exception){}
         return episodes
+    }
+
+    override suspend fun getEpisodeFromWeb(url: String): EpisodeDomain? {
+        var episode: EpisodeDomain? = null
+        try {
+            val loadepisode = remoteDataSource.getEpisodeWeb(url)
+            episode = loadepisode.body()
+        }catch (ex:java.lang.Exception){}
+        return episode
     }
 }

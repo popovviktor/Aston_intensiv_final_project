@@ -3,6 +3,7 @@ package com.myapplication.finalproject.featureChararcters.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentDetailCharacterBinding
@@ -13,6 +14,20 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
     (DetailCharacterViewModel::class.java){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val url = arguments?.getString("url")
+        if (url!=null){
+            println(url)
+            viewModel.startLoadDetailCharacter(url)
+            viewModel.character.observe(requireActivity(), Observer {
+                if (it!=null){
+                    println(it)
+                    if (it.episode.size>0){
+
+                    }
+                }
+            })
+        }
+
         println("COCOOCOC")
         binding.button.setOnClickListener {
             parentFragmentManager.popBackStack()

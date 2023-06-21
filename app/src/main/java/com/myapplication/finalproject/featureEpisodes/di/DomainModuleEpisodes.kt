@@ -1,15 +1,7 @@
 package com.myapplication.finalproject.featureEpisodes.di
 
 import com.myapplication.finalproject.featureEpisodes.domain.repository.RepositoryEpisodes
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesFromDBUseCase
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesFromWebUseCase
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.GetEpisodesNewPageUseCase
-import com.myapplication.finalproject.featureEpisodes.domain.usecase.SaveEpisodesInDBUseCase
-import com.myapplication.finalproject.featureLocation.domain.repository.RepositoryLocations
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromDBUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromWebUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsNewPageUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.SaveLocationsInDBUseCase
+import com.myapplication.finalproject.featureEpisodes.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -35,5 +27,10 @@ class DomainModuleEpisodes {
     @Provides
     fun provideGetEpisodesNewPage(repository: RepositoryEpisodes): GetEpisodesNewPageUseCase {
         return GetEpisodesNewPageUseCase(repository)
+    }
+    @Singleton
+    @Provides
+    fun provideGetEpisodeWev(repository: RepositoryEpisodes):GetEpisodeFromWebUseCase{
+        return GetEpisodeFromWebUseCase(repository)
     }
 }

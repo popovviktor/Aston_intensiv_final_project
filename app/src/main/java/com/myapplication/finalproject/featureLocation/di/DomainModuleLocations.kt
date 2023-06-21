@@ -6,10 +6,7 @@ import com.myapplication.finalproject.featureChararcters.domain.usecase.GetChara
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersNewPageUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.SaveCharactersInDbUseCase
 import com.myapplication.finalproject.featureLocation.domain.repository.RepositoryLocations
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromDBUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromWebUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsNewPageUseCase
-import com.myapplication.finalproject.featureLocation.domain.usecase.SaveLocationsInDBUseCase
+import com.myapplication.finalproject.featureLocation.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -35,5 +32,10 @@ class DomainModuleLocations {
     @Provides
     fun provideGetLocationsNewPage(repository: RepositoryLocations): GetLocationsNewPageUseCase {
         return GetLocationsNewPageUseCase(repository)
+    }
+    @Singleton
+    @Provides
+    fun providesGetLocationWeb(repository: RepositoryLocations):GetLocationWebUseCase{
+        return GetLocationWebUseCase(repository)
     }
 }

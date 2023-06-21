@@ -210,10 +210,13 @@ CharactersViewModel::class.java
     }
 
     override fun clickitem(item: CharacterDomain) {
-        parentFragmentManager.saveFragmentInstanceState(this)
+        val detailFragment = DetailCharacterFragment()
+        val bundleToDetail = Bundle()
+        bundleToDetail.putString("url",item.url)
+        detailFragment.arguments = bundleToDetail
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container,DetailCharacterFragment())
+            .replace(R.id.fragment_container,detailFragment)
             .addToBackStack(null)
             .commit()
     }

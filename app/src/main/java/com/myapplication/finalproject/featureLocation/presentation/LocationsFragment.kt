@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentLocationsBinding
+import com.myapplication.finalproject.featureEpisodes.presentation.DetailEpisodeFragment
 import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.presentation.adapter.AdapterForLocations
@@ -203,10 +204,13 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
     }
 
     override fun clickitem(item: LocationDomain) {
-        parentFragmentManager.saveFragmentInstanceState(this)
+        val detailFragment = DetailLocationFragment()
+        val bundleToDetail = Bundle()
+        bundleToDetail.putString("url",item.url)
+        detailFragment.arguments = bundleToDetail
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, DetailLocationFragment())
+            .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)
             .commit()
     }

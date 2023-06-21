@@ -5,5 +5,5 @@ import javax.inject.Inject
 class RemoteDataSourceLocations @Inject constructor(private val apiServiceLocations: ApiServiceLocations) {
     suspend fun getLocations() = apiServiceLocations.getLocations()
     suspend fun getLocationsNewPage(url:String) = apiServiceLocations.getLocationsNewPage(url)
-
+    suspend fun getLocation(url: String) = apiServiceLocations.getLocation(url)
 }

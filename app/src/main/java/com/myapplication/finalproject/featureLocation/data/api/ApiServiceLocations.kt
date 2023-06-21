@@ -1,6 +1,7 @@
 package com.myapplication.finalproject.featureLocation.data.api
 
 
+import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,5 +12,7 @@ interface ApiServiceLocations {
     suspend fun getLocations(): Response<LocationsDomain>
     @GET
     suspend fun getLocationsNewPage(@Url url:String): Response<LocationsDomain>
+    @GET
+    suspend fun getLocation(@Url url:String): Response<LocationDomain>
 
 }

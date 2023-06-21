@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentEpisodesBinding
+import com.myapplication.finalproject.featureChararcters.presentation.DetailCharacterFragment
 import com.myapplication.finalproject.featureEpisodes.di.EpisodesComponent
 import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
 import com.myapplication.finalproject.featureEpisodes.presentation.adapter.AdapterForEpisodes
@@ -204,10 +205,13 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding,EpisodesViewModel>
     }
 
     override fun clickitem(item: EpisodeDomain) {
-        parentFragmentManager.saveFragmentInstanceState(this)
+        val detailFragment = DetailEpisodeFragment()
+        val bundleToDetail = Bundle()
+        bundleToDetail.putString("url",item.url)
+        detailFragment.arguments = bundleToDetail
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, DetailEpisodeFragment())
+            .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)
             .commit()
     }
