@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [ViewModelFactoryModule::class, EpisodeViewModelModule::class,
     DomainModuleEpisodes::class, DataModuleEpisodes::class])
-interface EpisodesComponent {
+interface EpisodesComponent :ProviderGetEpisode{
     fun inject(mainActivity: MainActivity)
     fun inject(episodesFragment: EpisodesFragment)
     fun inject(detailEpisodeFragment: DetailEpisodeFragment)

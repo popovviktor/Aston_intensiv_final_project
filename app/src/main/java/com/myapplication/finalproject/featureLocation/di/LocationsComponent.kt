@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [ViewModelFactoryModule::class, LocationViewModelModule::class,
             DomainModuleLocations::class, DataModuleLocations::class])
-interface LocationsComponent {
+interface LocationsComponent:ProviderGetLocation {
     fun inject(mainActivity: MainActivity)
     fun inject(locationsFragment: LocationsFragment)
     fun inject(detailLocationFragment: DetailLocationFragment)
