@@ -13,19 +13,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentLocationsBinding
-import com.myapplication.finalproject.featureChararcters.presentation.*
 import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.presentation.adapter.AdapterForLocations
 import com.myapplication.finalproject.featureLocation.presentation.adapter.SpaceItemDecorationLocations
 import com.myapplication.finalproject.featureLocation.presentation.adapter.onClickItemLocationListener
+import com.myapplication.finalproject.featureLocation.presentation.models.ParamsFilterLocations
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 
 private const val REQUEST_KEY_LOCATION = "request_key_find_filter_location"
-private const val FILTER_NAME = "filter_name"
+private const val FILTER_NAME_LOCATION = "filter_name_location"
+private const val FILTER_TYPE_LOCATION = "filter_type_location"
+private const val FILTER_DIMENSION_LOCATION = "filter_dimension_location"
 private const val LANDSCAPE_ORIENTATION = 2
 private val adapterLocation = AdapterForLocations()
 
@@ -55,10 +57,13 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
     }
     fun registerFragmentResultListener(){
         setFragmentResultListener(REQUEST_KEY_LOCATION) { key, bundle ->
-            val filterName = bundle.getString(FILTER_NAME)
+            val filterName = bundle.getString(FILTER_NAME_LOCATION)
+            val filterType = bundle.getString(FILTER_TYPE_LOCATION)
+            val filterDimension = bundle.getString(FILTER_DIMENSION_LOCATION)
             binding.progressRefresh2.visibility = View.VISIBLE
             viewModel.enableFilterFind()
-            viewModel.getDefaultUrlForFindWithFilter(filterName)
+            val params = ParamsFilterLocations(filterName,filterType,filterDimension)
+            viewModel.getDefaultUrlForFindWithFilter(params)
         }
     }
 
@@ -72,7 +77,7 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
         setLayoutManagerInRecycler()
         binding.rvForLocations.adapter = adapterLocation
         adapterLocation.onClickListener = this
-        addBottomSheetForFilter()
+        addSetClickListenerOpenBottomSheetForFilter()
         followVisibleEndProgressBarLoad()
         setScrollListenerForRecyclerCharacters()
         initAddItemDecorations()
@@ -115,9 +120,9 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
         viewModel.pullToRefresh()
         adapterLocation.notifyDataSetChanged()
     }
-    fun addBottomSheetForFilter(){
+    fun addSetClickListenerOpenBottomSheetForFilter(){
         binding.btnFilter2.setOnClickListener {
-            CharactersBottomSheetForFilter.show(requireActivity())
+            LocationsBottomSheetForFilterFragment.show(requireActivity())
         }
     }
     fun followVisibleEndProgressBarLoad(){

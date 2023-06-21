@@ -36,7 +36,7 @@ class MapModelDataToDomainLocations {
             locationDomain.type = elem.type
             locationDomain.dimension = elem.dimension
             locationDomain.url = elem.url
-            locationDomain.residents = elem.residents?.split(",") as ArrayList<String>
+            //locationDomain.residents = elem.residents?.split(",") as ArrayList<String>
             resultsDomain.add(locationDomain)
         }
         return resultsDomain

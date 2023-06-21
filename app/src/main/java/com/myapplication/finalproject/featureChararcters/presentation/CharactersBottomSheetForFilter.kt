@@ -52,7 +52,6 @@ class CharactersBottomSheetForFilter: BaseBottomSheet<FragmentBottomSheetCharact
     }
     fun setFragmentResultWithFilterForFound(){
         val bundle = getBundleWithFilterParams()
-        bundle.putString("extra_key","ssssssss")
         setFragmentResult(
             REQUEST_KEY,
             bundle

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapplication.finalproject.featureChararcters.presentation.model.ParamsFilterFromDb
 import com.myapplication.finalproject.featureLocation.domain.models.InfoLocationPageDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
@@ -12,7 +11,7 @@ import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocation
 import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsFromWebUseCase
 import com.myapplication.finalproject.featureLocation.domain.usecase.GetLocationsNewPageUseCase
 import com.myapplication.finalproject.featureLocation.domain.usecase.SaveLocationsInDBUseCase
-import com.myapplication.finalproject.featureLocation.presentation.models.ParamsFilterFromDbLocations
+import com.myapplication.finalproject.featureLocation.presentation.models.ParamsFilterLocations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,20 +38,29 @@ class LocationsViewModel @Inject constructor(
     val informationToast: StateFlow<String> = _informationToast.asStateFlow()
     val isFilterEnable: StateFlow<Boolean> = _isFilterEnable.asStateFlow()
     private var defultUrlForFilterFind:String? = null
-    private var paramsFilterFromDBLocations: ParamsFilterFromDbLocations? = null
+    private var paramsFilterFromDBLocations: ParamsFilterLocations? = null
     fun setStateLoadNextEnd(){
         _stateEndLoadingNextPage.value = false
     }
     fun setStateLoadRefreshDisable(){
         _stateEndLoadingRefresh.value = false
     }
-    fun getDefaultUrlForFindWithFilter(name:String?){
+    fun getDefaultUrlForFindWithFilter(params:ParamsFilterLocations){
         val urlForFindFilter:StringBuilder = StringBuilder("https://rickandmortyapi.com/api/location/?")
-        if (name!=null){
+        if (params.name!=null){
             urlForFindFilter.append("name=")
-            urlForFindFilter.append(name+"&")
+            urlForFindFilter.append(params.name+"&")
         }
-        paramsFilterFromDBLocations = ParamsFilterFromDbLocations(name)
+        if (params.type!=null){
+            urlForFindFilter.append("type=")
+            urlForFindFilter.append(params.type+"&")
+        }
+        if (params.dimension!=null){
+            urlForFindFilter.append("dimension=")
+            urlForFindFilter.append(params.dimension+"&")
+        }
+
+        paramsFilterFromDBLocations = ParamsFilterLocations(params.name,params.type,params.dimension)
         defultUrlForFilterFind = urlForFindFilter.toString()
         getDefaultPageWithFilter(defultUrlForFilterFind!!)
         println(isFilterEnable)
@@ -147,7 +155,7 @@ class LocationsViewModel @Inject constructor(
             }
         }
     }
-    fun findfilterFromDB(locationsFromDb: LocationsDomain, paramsFilter: ParamsFilterFromDbLocations)
+    fun findfilterFromDB(locationsFromDb: LocationsDomain, paramsFilter: ParamsFilterLocations)
             : LocationsDomain {
         val foundCharacters = ArrayList<LocationDomain>()
         val info = InfoLocationPageDomain(next = null, prev = null)

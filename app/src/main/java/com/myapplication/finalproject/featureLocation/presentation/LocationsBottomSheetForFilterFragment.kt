@@ -5,60 +5,82 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.setFragmentResult
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.core.base.bottomsheet.BaseBottomSheet
+import com.myapplication.finalproject.databinding.FragmentLocationsBottomSheetForFilterBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val REQUEST_KEY_LOCATION = "request_key_find_filter_location"
+private const val FILTER_NAME_LOCATION = "filter_name_location"
+private const val FILTER_TYPE_LOCATION = "filter_type_location"
+private const val FILTER_DIMENSION_LOCATION = "filter_dimension_location"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LocationsBottomSheetForFilterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LocationsBottomSheetForFilterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class LocationsBottomSheetForFilterFragment : BaseBottomSheet<FragmentLocationsBottomSheetForFilterBinding>() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setClickListenerFindButton()
+    }
+    fun setClickListenerFindButton(){
+        binding.btnFindWithFilterLocation.setOnClickListener {
+            setFragmentResultWithFilterForFound()
+        }
+    }
+    fun setFragmentResultWithFilterForFound(){
+        val bundle = getBundleWithFilterParams()
+        setFragmentResult(
+            REQUEST_KEY_LOCATION,
+            bundle
+        )
+        onDismiss(requireDialog())
+    }
+    fun getBundleWithFilterParams():Bundle{
+        val bundle = Bundle()
+        if (getFilterName()!=null){
+            bundle.putString(FILTER_NAME_LOCATION,getFilterName())
+        }
+        if (getTypeFilter()!=null){
+            bundle.putString(FILTER_TYPE_LOCATION,getTypeFilter())
+        }
+        if (getDimesionFilter()!=null){
+            bundle.putString(FILTER_DIMENSION_LOCATION,getDimesionFilter())
+        }
+        return bundle
+    }
+    fun getFilterName():String?{
+        val findName = binding.editFilterNameLocation.text.toString()
+        if (findName.length>0){
+            return findName
+        }else{
+            return null
+        }
+    }
+    fun getTypeFilter():String?{
+        val findSpecies = binding.editFilterTypeLocation.text.toString()
+        if (findSpecies.length>0){
+            return findSpecies
+        }else{return null}
+    }
+    fun getDimesionFilter():String?{
+        val findType = binding.editFilterDimensionLocation.text.toString()
+        if (findType.length>0){
+            return findType
+        }else{return null}
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+
+    companion object {
+        fun show(activity: FragmentActivity) {
+            val fragment = LocationsBottomSheetForFilterFragment()
+            fragment.show(
+                activity.supportFragmentManager,
+                LocationsBottomSheetForFilterFragment::class.simpleName
+            )
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(
-            R.layout.fragment_locations_bottom_sheet_for_filter,
-            container,
-            false
-        )
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LocationsBottomSheetForFilterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LocationsBottomSheetForFilterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun createBinding(): FragmentLocationsBottomSheetForFilterBinding {
+        return FragmentLocationsBottomSheetForFilterBinding.inflate(layoutInflater)
     }
 }
