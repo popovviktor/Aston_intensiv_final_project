@@ -29,11 +29,12 @@ private const val FILTER_NAME_LOCATION = "filter_name_location"
 private const val FILTER_TYPE_LOCATION = "filter_type_location"
 private const val FILTER_DIMENSION_LOCATION = "filter_dimension_location"
 private const val LANDSCAPE_ORIENTATION = 2
-private val adapterLocation = AdapterForLocations()
+
 
 class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewModel>(
     LocationsViewModel::class.java
 ),onClickItemLocationListener {
+    private val adapterLocation = AdapterForLocations()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerFragmentResultListener()

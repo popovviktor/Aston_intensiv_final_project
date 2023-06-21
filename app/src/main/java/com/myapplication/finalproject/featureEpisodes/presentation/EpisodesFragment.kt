@@ -29,17 +29,20 @@ private const val REQUEST_KEY_EPISODE = "request_key_find_filter_episodes"
 private const val FILTER_NAME_EPISODE = "filter_name_episode"
 private const val FILTER_EPISODE_EPISODE = "filter_type_episode"
 private const val LANDSCAPE_ORIENTATION = 2
-private val adapterEpisode = AdapterForEpisodes()
+
 
 class EpisodesFragment : BaseFragment<FragmentEpisodesBinding,EpisodesViewModel>(
     EpisodesViewModel::class.java
 ),onClickItemEpisodeListener {
+    private val adapterEpisode = AdapterForEpisodes()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerFragmentResultListener()
         followCharactersUpdateForUi()
         if (savedInstanceState==null){
+            println("nullllll")
             if (adapterEpisode.list.size<1){
+                println("over adapter load")
                 getLoadDefaultPageAndFollowCharacterUpdateForUi()
             }
         }
@@ -222,4 +225,5 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding,EpisodesViewModel>
     override fun initDaggerComponent(function: () -> Unit) {
         EpisodesComponent.init(requireActivity()).inject(this)
     }
+
 }

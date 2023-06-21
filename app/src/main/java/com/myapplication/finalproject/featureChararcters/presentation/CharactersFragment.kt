@@ -32,12 +32,12 @@ private const val FILTER_SPECIES = "filter_species"
 private const val FILTER_TYPE = "filter_type"
 private const val FILTER_GENDER = "filter_gender"
 private const val LANDSCAPE_ORIENTATION = 2
-private val adapter = AdapterForCharacters()
+
 
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
 CharactersViewModel::class.java
 ),onClickItemCharacterListener{
-
+    private val adapter = AdapterForCharacters()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerFragmentResultListener()
