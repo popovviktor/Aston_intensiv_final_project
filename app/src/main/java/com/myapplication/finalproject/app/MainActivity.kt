@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.core.os.HandlerCompat.postDelayed
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.myapplication.finalproject.R
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun navigateToEpisodes(){
         navigateToFragment(EpisodesFragment())
+
     }
     fun navigateToLocations(){
         navigateToFragment(LocationsFragment())

@@ -53,7 +53,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="60dp"
             android:backgroundTint="@color/teal_700"
-            android:text="filter"
+            android:text="Find And Filter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
