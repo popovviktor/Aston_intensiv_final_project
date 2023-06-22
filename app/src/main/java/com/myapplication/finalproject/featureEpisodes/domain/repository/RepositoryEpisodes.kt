@@ -10,4 +10,5 @@ interface RepositoryEpisodes {
     suspend fun getEpisodesFromDB(): EpisodesDomain?
     suspend fun getNewPageEpisodesFromWeb(urlNewPage:String): EpisodesDomain?
     suspend fun getEpisodeFromWeb(url:String):EpisodeDomain?
+    suspend fun getEpisodesWithoutInfoPageWeb(url:String):ArrayList<EpisodeDomain>?
 }

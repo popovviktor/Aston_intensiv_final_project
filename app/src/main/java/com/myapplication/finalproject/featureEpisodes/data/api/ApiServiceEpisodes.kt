@@ -14,5 +14,6 @@ interface ApiServiceEpisodes {
     suspend fun getEpisodesNewPage(@Url url:String): Response<EpisodesDomain>
     @GET
     suspend fun getEpisode(@Url url:String): Response<EpisodeDomain>
-
+    @GET
+    suspend fun getEpisodesWithoutInfoPage(@Url url: String):Response<ArrayList<EpisodeDomain>>
 }

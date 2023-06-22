@@ -69,4 +69,13 @@ class RepositoryEpisodesImpl @Inject constructor (private val remoteDataSource: 
         }catch (ex:java.lang.Exception){}
         return episode
     }
+
+    override suspend fun getEpisodesWithoutInfoPageWeb(url: String): ArrayList<EpisodeDomain>? {
+        var episodes: ArrayList<EpisodeDomain>? = null
+        try {
+            val loadepisodes = remoteDataSource.getEpisodesWithotInfoPage(url)
+            episodes = loadepisodes.body()
+        }catch (ex:java.lang.Exception){}
+        return episodes
+    }
 }
