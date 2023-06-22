@@ -25,7 +25,11 @@ class DetailCharacterViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             getCharacterUseCase.execute(url).let {
                 if (it!=null){
+                    println(it)
                     _character.postValue(it)
+                    getLocation.execute(it.origin?.url!!).let {
+                        println(it)
+                    }
                     getEpisode.execute(it.episode.get(0)).let {
                         if (it!=null){
                             println(it)

@@ -2,6 +2,8 @@ package com.myapplication.finalproject.featureLocation.di
 
 import android.content.Context
 import com.example.daggerlecture2023.core.di.ViewModelFactoryModule
+import com.myapplication.finalproject.ComponentForMissCircularDependency.ComponentOther
+import com.myapplication.finalproject.ComponentForMissCircularDependency.ProviderGetCharacter
 import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.di.CharactersViewModelModule
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
@@ -18,18 +20,22 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [ViewModelFactoryModule::class, LocationViewModelModule::class,
-            DomainModuleLocations::class, DataModuleLocations::class])
-interface LocationsComponent:ProviderGetLocation {
+            DomainModuleLocations::class, DataModuleLocations::class],
+            dependencies = [ProviderGetCharacter::class])
+interface LocationsComponent:ProviderGetLocation ,DependencyProviderCharacterForLocation{
     fun inject(mainActivity: MainActivity)
     fun inject(locationsFragment: LocationsFragment)
     fun inject(detailLocationFragment: DetailLocationFragment)
     @Component.Factory
     interface Factory{
-        fun create(@BindsInstance context: Context): LocationsComponent
+        fun create(
+            providerCharacterForLocation:ProviderGetCharacter,@BindsInstance context: Context): LocationsComponent
     }
     companion object{
         fun init(context: Context): LocationsComponent {
-            return DaggerLocationsComponent.factory().create(context)
+            val providerCharacterForLocation = ComponentOther.init(context)
+            return DaggerLocationsComponent.factory().create(
+                providerCharacterForLocation,context)
         }
     }
 }

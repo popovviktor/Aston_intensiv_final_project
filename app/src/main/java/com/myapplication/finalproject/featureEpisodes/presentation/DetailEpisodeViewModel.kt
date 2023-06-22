@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class DetailEpisodeViewModel@Inject constructor(
     private val getEpisode:GetEpisodeFromWebUseCase,
-    private val getCharacterUseCase: GetCharacterWebUseCase,
+    private val getCharacterUseCase: GetCharacterWebUseCase
 ):ViewModel() {
     private val _episode = MutableLiveData<EpisodeDomain>()
     val episode: LiveData<EpisodeDomain>
