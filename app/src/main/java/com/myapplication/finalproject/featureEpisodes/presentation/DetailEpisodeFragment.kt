@@ -19,7 +19,7 @@ import com.myapplication.finalproject.featureChararcters.presentation.adapter.on
 import com.myapplication.finalproject.featureEpisodes.di.EpisodesComponent
 import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
 
-
+private const val LANDSCAPE_ORIENTATION = 2
 class DetailEpisodeFragment : BaseFragment<FragmentDetailEpisodeBinding,DetailEpisodeViewModel>(
     DetailEpisodeViewModel::class.java
 ),onClickItemCharacterListener {
@@ -34,8 +34,13 @@ class DetailEpisodeFragment : BaseFragment<FragmentDetailEpisodeBinding,DetailEp
         }
     }
     fun initRecyclerAdapter(){
+        val orientation = requireActivity().resources.configuration.orientation
+        var spanCountForGridLayout = 2
+        if (orientation== LANDSCAPE_ORIENTATION){
+            spanCountForGridLayout = 3
+        }
         binding.rvForCharactersDetailEpisode.layoutManager = GridLayoutManager(activity,
-            2, RecyclerView.VERTICAL,false)
+            spanCountForGridLayout, RecyclerView.VERTICAL,false)
         binding.rvForCharactersDetailEpisode.addItemDecoration(SpaceItemDecorationCharacters(5))
         binding.rvForCharactersDetailEpisode.adapter = adapterForCharacters
         adapterForCharacters.onClickListener = this

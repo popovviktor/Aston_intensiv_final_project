@@ -20,7 +20,7 @@ import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomai
 import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 
-
+private const val LANDSCAPE_ORIENTATION = 2
 class DetailLocationFragment : BaseFragment<FragmentDetailLocationBinding,DetailLocationViewModel>(
     DetailLocationViewModel::class.java
 ), onClickItemCharacterListener {
@@ -35,8 +35,13 @@ class DetailLocationFragment : BaseFragment<FragmentDetailLocationBinding,Detail
         }
     }
     fun initRecyclerAdapter(){
+        val orientation = requireActivity().resources.configuration.orientation
+        var spanCountForGridLayout = 2
+        if (orientation== LANDSCAPE_ORIENTATION){
+            spanCountForGridLayout = 3
+        }
         binding.rvForCharactersLocationDetail.layoutManager = GridLayoutManager(activity,
-            2, RecyclerView.VERTICAL,false)
+            spanCountForGridLayout, RecyclerView.VERTICAL,false)
         binding.rvForCharactersLocationDetail.addItemDecoration(SpaceItemDecorationCharacters(5))
         binding.rvForCharactersLocationDetail.adapter = adapterForCharacters
         adapterForCharacters.onClickListener = this
