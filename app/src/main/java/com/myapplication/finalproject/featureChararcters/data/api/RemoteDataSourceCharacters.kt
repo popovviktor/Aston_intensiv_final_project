@@ -6,4 +6,5 @@ class RemoteDataSourceCharacters @Inject constructor(private val apiService: Api
     suspend fun getCharacters() = apiService.getCharacters()
     suspend fun getCharactersNewPage(url:String) = apiService.getCharactersNewPage(url)
     suspend fun getCharacter(url:String) = apiService.getCharacter(url)
+    suspend fun getCharactersWithoutPage(url: String) = apiService.getCharactersWithoutPage(url)
 }

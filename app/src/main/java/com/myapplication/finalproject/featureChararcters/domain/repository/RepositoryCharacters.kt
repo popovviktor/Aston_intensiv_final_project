@@ -9,4 +9,5 @@ interface RepositoryCharacters {
     suspend fun getPageCharactersFromDB(): CharactersDomain?
     suspend fun getNewPageCharactersFromWeb(urlNewPage:String): CharactersDomain?
     suspend fun getCharacterWebUseCase(urlNewPage:String): CharacterDomain?
+    suspend fun getCharactersWithoutInfoPage(url:String):ArrayList<CharacterDomain>?
 }

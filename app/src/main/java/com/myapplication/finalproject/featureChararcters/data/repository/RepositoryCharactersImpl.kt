@@ -70,6 +70,15 @@ class RepositoryCharactersImpl @Inject constructor (private val remoteDataSource
         return character
     }
 
+    override suspend fun getCharactersWithoutInfoPage(url: String): ArrayList<CharacterDomain>? {
+        var characters: ArrayList<CharacterDomain>? = null
+        try {
+            val loadedCharacters = remoteDataSource.getCharactersWithoutPage(url)
+            characters = loadedCharacters.body()
+        }catch (ex:java.lang.Exception){}
+        return characters
+    }
+
 //    override suspend fun getItemCharacter(id: Int): CharacterDomain {
 //
 //    }

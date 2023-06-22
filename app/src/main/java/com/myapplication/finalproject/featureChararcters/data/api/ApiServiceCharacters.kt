@@ -13,6 +13,7 @@ interface ApiServiceCharacters {
     suspend fun getCharactersNewPage(@Url url:String):Response<CharactersDomain>
     @GET
     suspend fun getCharacter(@Url url:String):Response<CharacterDomain>
-
+    @GET
+    suspend fun getCharactersWithoutPage(@Url url: String):Response<ArrayList<CharacterDomain>>
 
 }

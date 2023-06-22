@@ -90,12 +90,11 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
             urlStringBuilder.append(indexUrlThisEpisode)
             urlStringBuilder.append(",")
         }
-        println(urlStringBuilder)
-        return urlStringBuilder.toString()
+        return urlStringBuilder.trimEnd(',').toString()
     }
     fun startLoadEpisodes(){
         val urlEpisoed = generateUrlForLoadAllEpisode()
-        viewModel.startLoadEpisodes(urlEpisoed.trimEnd(','))
+        viewModel.startLoadEpisodes(urlEpisoed)
     }
     fun followLoadEpisodes(){
         viewModel.episodes.observe(requireActivity(), Observer {
