@@ -3,11 +3,6 @@ package com.myapplication.finalproject.featureLocation.di
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.myapplication.finalproject.featureChararcters.data.AppDb.AppDataBaseCharacters
-import com.myapplication.finalproject.featureChararcters.data.api.ApiServiceCharacters
-import com.myapplication.finalproject.featureChararcters.data.api.RemoteDataSourceCharacters
-import com.myapplication.finalproject.featureChararcters.data.repository.RepositoryCharactersImpl
-import com.myapplication.finalproject.featureChararcters.domain.repository.RepositoryCharacters
 import com.myapplication.finalproject.featureLocation.data.AppDb.AppDataBaseLocations
 import com.myapplication.finalproject.featureLocation.data.api.ApiServiceLocations
 import com.myapplication.finalproject.featureLocation.data.api.RemoteDataSourceLocations

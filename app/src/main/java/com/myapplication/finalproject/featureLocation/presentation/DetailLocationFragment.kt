@@ -1,14 +1,12 @@
 package com.myapplication.finalproject.featureLocation.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentDetailLocationBinding
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
@@ -16,7 +14,6 @@ import com.myapplication.finalproject.featureChararcters.presentation.DetailChar
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.SpaceItemDecorationCharacters
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.onClickItemCharacterListener
-import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
 import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 
@@ -28,6 +25,8 @@ class DetailLocationFragment : BaseFragment<FragmentDetailLocationBinding,Detail
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerAdapter()
+        val activity = requireActivity() as MainActivity
+        activity.setVisibleBackButton()
         val url = arguments?.getString("url")
         if (url!=null){
             startLoadLocationDeteail(url)

@@ -1,7 +1,6 @@
 package com.myapplication.finalproject.featureLocation.domain.usecase
 
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
-import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
 import com.myapplication.finalproject.featureLocation.domain.repository.RepositoryLocations
 import javax.inject.Inject
 

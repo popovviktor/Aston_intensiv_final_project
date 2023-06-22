@@ -5,13 +5,6 @@ import com.example.daggerlecture2023.core.di.ViewModelFactoryModule
 import com.myapplication.finalproject.ComponentForMissCircularDependency.ComponentOther
 import com.myapplication.finalproject.ComponentForMissCircularDependency.ProviderGetCharacter
 import com.myapplication.finalproject.app.MainActivity
-import com.myapplication.finalproject.app.core.di.CharactersViewModelModule
-import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
-import com.myapplication.finalproject.featureChararcters.di.DaggerCharactersComponent
-import com.myapplication.finalproject.featureChararcters.di.DataModuleCharacters
-import com.myapplication.finalproject.featureChararcters.di.DomainModuleCharacters
-import com.myapplication.finalproject.featureChararcters.presentation.CharactersFragment
-import com.myapplication.finalproject.featureChararcters.presentation.DetailCharacterFragment
 import com.myapplication.finalproject.featureLocation.presentation.DetailLocationFragment
 import com.myapplication.finalproject.featureLocation.presentation.LocationsFragment
 import dagger.BindsInstance

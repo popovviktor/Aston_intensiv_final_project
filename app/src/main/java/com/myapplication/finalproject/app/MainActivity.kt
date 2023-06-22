@@ -2,18 +2,15 @@ package com.myapplication.finalproject.app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import androidx.core.os.HandlerCompat.postDelayed
-import androidx.core.view.forEach
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.databinding.ActivityMainBinding
 import com.myapplication.finalproject.featureChararcters.presentation.CharactersFragment
 import com.myapplication.finalproject.featureEpisodes.presentation.EpisodesFragment
 import com.myapplication.finalproject.featureLocation.presentation.LocationsFragment
-import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
@@ -26,12 +23,35 @@ class MainActivity : AppCompatActivity() {
             if (it.itemId == R.id.navEpisodes)navigateToEpisodes()
             if (it.itemId == R.id.navLocations)navigateToLocations()
             return@setOnItemSelectedListener true}
+        binding.imBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        onBackPressedDispatcher.addCallback(this,object :OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if (supportFragmentManager.backStackEntryCount>0){
+                    val count = supportFragmentManager.backStackEntryCount
+                    supportFragmentManager.popBackStack()
+                    if (count-1==0){
+                        binding.imBack.visibility = View.GONE
+                    }else{
+                        binding.imBack.visibility = View.VISIBLE
+                    }
+                }else{finish()}
+            }
+        })
+    }
+    fun setGoneBackButton(){
+        binding.imBack.visibility = View.GONE
+    }
+    fun setVisibleBackButton(){
+        binding.imBack.visibility = View.VISIBLE
     }
     fun navigateToFragment(fragment: Fragment){
-        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        if (supportFragmentManager.backStackEntryCount>0){
+            supportFragmentManager.popBackStack(null,POP_BACK_STACK_INCLUSIVE)
+        }
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack("character")
             .commit()
     }
     fun navigateToCharacters(){
@@ -44,4 +64,5 @@ class MainActivity : AppCompatActivity() {
     fun navigateToLocations(){
         navigateToFragment(LocationsFragment())
     }
+
 }

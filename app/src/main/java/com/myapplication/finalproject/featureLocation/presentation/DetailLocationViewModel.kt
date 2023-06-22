@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharacterWebUseCase
 import com.myapplication.finalproject.featureChararcters.domain.usecase.GetCharactersWithoutInfoPageWeb
-import com.myapplication.finalproject.featureEpisodes.domain.models.EpisodeDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.domain.usecase.*
 import kotlinx.coroutines.Dispatchers

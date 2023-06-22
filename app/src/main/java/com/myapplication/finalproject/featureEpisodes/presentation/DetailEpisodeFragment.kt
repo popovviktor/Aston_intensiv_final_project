@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentDetailEpisodeBinding
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
@@ -27,6 +28,8 @@ class DetailEpisodeFragment : BaseFragment<FragmentDetailEpisodeBinding,DetailEp
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerAdapter()
+        val activity = requireActivity() as MainActivity
+        activity.setVisibleBackButton()
         val url = arguments?.getString("url")
         if (url!=null){
             startLoadDetailEpisode(url)

@@ -11,9 +11,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentLocationsBinding
-import com.myapplication.finalproject.featureEpisodes.presentation.DetailEpisodeFragment
 import com.myapplication.finalproject.featureLocation.di.LocationsComponent
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.presentation.adapter.AdapterForLocations
@@ -38,6 +38,7 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
     private val adapterLocation = AdapterForLocations()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity()as MainActivity).setGoneBackButton()
         registerFragmentResultListener()
         followCharactersUpdateForUi()
         if (savedInstanceState==null){

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class LocationsEntity (
-    @SerializedName("info"    ) var info    : InfoLocationPageData?              = InfoLocationPageData(),
+    @SerializedName("info"    ) var info    : InfoLocationPageData?   = InfoLocationPageData(),
     @SerializedName("results" ) var results : ArrayList<LocationData> = arrayListOf()
 )
 @Entity(tableName = "info_location_page")

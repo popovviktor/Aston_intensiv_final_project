@@ -1,9 +1,7 @@
 package com.myapplication.finalproject.featureLocation.data.repository
 
-import com.myapplication.finalproject.featureChararcters.domain.models.CharactersDomain
 import com.myapplication.finalproject.featureLocation.data.utils.MapModelDataToDomainLocations
 import com.myapplication.finalproject.featureLocation.data.utils.*
-
 import com.myapplication.finalproject.featureLocation.data.api.RemoteDataSourceLocations
 import com.myapplication.finalproject.featureLocation.data.dao.LocationsDao
 import com.myapplication.finalproject.featureLocation.data.models.LocationData

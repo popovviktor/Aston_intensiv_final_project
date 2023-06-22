@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentEpisodesBinding
 import com.myapplication.finalproject.featureChararcters.presentation.DetailCharacterFragment
@@ -38,12 +39,11 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding,EpisodesViewModel>
     private val adapterEpisode = AdapterForEpisodes()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity()as MainActivity).setGoneBackButton()
         registerFragmentResultListener()
         followCharactersUpdateForUi()
         if (savedInstanceState==null){
-            println("nullllll")
             if (adapterEpisode.list.size<1){
-                println("over adapter load")
                 getLoadDefaultPageAndFollowCharacterUpdateForUi()
             }
         }

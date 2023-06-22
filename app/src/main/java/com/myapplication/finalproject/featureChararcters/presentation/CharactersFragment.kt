@@ -2,8 +2,6 @@ package com.myapplication.finalproject.featureChararcters.presentation
 
 import android.os.Bundle
 import android.view.View
-import android.widget.GridLayout
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
@@ -13,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.AdapterForCharacters
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentCharactersBinding
@@ -20,7 +19,6 @@ import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
 import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.SpaceItemDecorationCharacters
 import com.myapplication.finalproject.featureChararcters.presentation.adapter.onClickItemCharacterListener
-import com.myapplication.finalproject.featureLocation.presentation.adapter.SpaceItemDecorationLocations
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -40,6 +38,7 @@ CharactersViewModel::class.java
     private val adapter = AdapterForCharacters()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity()as MainActivity).setGoneBackButton()
         registerFragmentResultListener()
         followCharactersUpdateForUi()
         if (savedInstanceState==null){
@@ -186,7 +185,6 @@ CharactersViewModel::class.java
                             binding.imCloseFilterFind.visibility = View.VISIBLE
                         }else{
                             binding.imCloseFilterFind.visibility = View.GONE
-
                         }
                         adapter.notifyDataSetChanged()
                     }

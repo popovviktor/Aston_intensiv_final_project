@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
+import com.myapplication.finalproject.app.MainActivity
 import com.myapplication.finalproject.app.core.base.fragment.BaseFragment
 import com.myapplication.finalproject.databinding.FragmentDetailCharacterBinding
 import com.myapplication.finalproject.featureChararcters.di.CharactersComponent
@@ -26,10 +27,11 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
     private val adapterForOrigin = AdapterForLocations()
     private val adapterForLocation = AdapterForLocations()
     private val adapterForEpisode = AdapterForEpisodes()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val url = arguments?.getString("url")
+        val activity = requireActivity() as MainActivity
+        activity.setVisibleBackButton()
         initSettingForAdapterLocation()
         initSettingForAdapterOrigin()
         initSettingForAdapterEpisodes()
@@ -99,7 +101,7 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
     fun followLoadEpisodes(){
         viewModel.episodes.observe(requireActivity(), Observer {
             if (it!=null){
-                adapterForEpisode.list.addAll(it)
+                adapterForEpisode.list=it
                 adapterForEpisode.notifyDataSetChanged()
             }
         })
@@ -114,13 +116,17 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
     fun followOriginAndLocation(){
         viewModel.origin.observe(requireActivity(), Observer {
             if (it!=null){
-                adapterForOrigin.list.add(it)
+                var arrayOrigins = ArrayList<LocationDomain>()
+                arrayOrigins.add(it)
+                adapterForOrigin.list=arrayOrigins
                 adapterForOrigin.notifyDataSetChanged()
             }
         })
         viewModel.location.observe(requireActivity(), Observer {
             if (it!=null){
-                adapterForLocation.list.add(it)
+                var arrayLocations = ArrayList<LocationDomain>()
+                arrayLocations.add(it)
+                adapterForLocation.list = arrayLocations
                 adapterForLocation.notifyDataSetChanged()
             }
         })

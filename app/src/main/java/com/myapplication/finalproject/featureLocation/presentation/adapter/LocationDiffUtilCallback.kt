@@ -1,7 +1,6 @@
 package com.myapplication.finalproject.featureLocation.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 
 class LocationDiffUtilCallback(

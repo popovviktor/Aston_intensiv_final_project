@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.myapplication.finalproject.R
 import com.myapplication.finalproject.databinding.ItemForLocationsBinding
-import com.myapplication.finalproject.featureChararcters.domain.models.CharacterDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
-import com.squareup.picasso.Picasso
+
 
 class AdapterForLocations: RecyclerView.Adapter<AdapterForLocations.ViewHolderForLocations>() {
     var list = ArrayList<LocationDomain>()

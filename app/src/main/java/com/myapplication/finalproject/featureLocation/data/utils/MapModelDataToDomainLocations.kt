@@ -1,8 +1,7 @@
 package com.myapplication.finalproject.featureLocation.data.utils
 
-import com.myapplication.finalproject.featureLocation.data.models.InfoLocationPageData
+
 import com.myapplication.finalproject.featureLocation.data.models.LocationsEntity
-import com.myapplication.finalproject.featureLocation.data.models.LocationData
 import com.myapplication.finalproject.featureLocation.domain.models.InfoLocationPageDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationDomain
 import com.myapplication.finalproject.featureLocation.domain.models.LocationsDomain
@@ -36,7 +35,6 @@ class MapModelDataToDomainLocations {
             locationDomain.type = elem.type
             locationDomain.dimension = elem.dimension
             locationDomain.url = elem.url
-            //locationDomain.residents = elem.residents?.split(",") as ArrayList<String>
             resultsDomain.add(locationDomain)
         }
         return resultsDomain

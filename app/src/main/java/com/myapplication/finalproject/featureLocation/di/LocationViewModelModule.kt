@@ -2,8 +2,6 @@ package com.myapplication.finalproject.featureLocation.di
 
 import androidx.lifecycle.ViewModel
 import com.example.daggerlecture2023.core.di.ViewModelKey
-import com.myapplication.finalproject.featureChararcters.presentation.CharactersViewModel
-import com.myapplication.finalproject.featureChararcters.presentation.DetailCharacterViewModel
 import com.myapplication.finalproject.featureLocation.presentation.DetailLocationViewModel
 import com.myapplication.finalproject.featureLocation.presentation.LocationsViewModel
 import dagger.Binds
