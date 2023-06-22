@@ -34,7 +34,6 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
         initSettingForAdapterOrigin()
         initSettingForAdapterEpisodes()
         if (url!=null){
-            println(url)
             viewModel.startLoadDetailCharacter(url)
             followLoadDetail()
         }
@@ -105,6 +104,9 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
         })
     }
     fun startLoadOriginAndLocaion(){
+        if (viewModel.character.value?.origin?.url?.length!! <2){
+            binding.originUnknown.visibility = View.VISIBLE
+        }
         viewModel.startLoadOrigin()
         viewModel.startLoadLocation()
     }
