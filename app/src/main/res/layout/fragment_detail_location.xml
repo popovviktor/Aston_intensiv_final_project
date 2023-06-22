@@ -21,6 +21,10 @@
             android:text="Name:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +36,10 @@
             android:layout_marginEnd="8dp"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -44,6 +52,10 @@
             android:text="Type:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="@+id/tvNameLocationDetail"
             app:layout_constraintTop_toBottomOf="@+id/tvNameLocationDetail" />
 
@@ -55,6 +67,10 @@
             android:layout_marginEnd="8dp"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView26"
             app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -67,6 +83,10 @@
             android:text="Dimension:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="@+id/tvTypeLocationDetail"
             app:layout_constraintTop_toBottomOf="@+id/tvTypeLocationDetail" />
 
@@ -77,6 +97,10 @@
             android:layout_marginTop="8dp"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView28"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
@@ -89,6 +113,10 @@
             android:text="Characters:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDimensionLocationDetail" />

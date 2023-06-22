@@ -20,6 +20,10 @@
             android:text="Air Date:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -32,6 +36,10 @@
             android:text="Name:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +51,10 @@
             android:text="Episode:"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/tvNameEpisode" />
 
@@ -53,6 +65,10 @@
             android:layout_marginEnd="8dp"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -64,6 +80,10 @@
             android:layout_marginStart="24dp"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintBottom_toBottomOf="@+id/textView14"
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="@+id/textView14" />
@@ -74,6 +94,10 @@
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintBottom_toBottomOf="@+id/textView19"
             app:layout_constraintStart_toStartOf="@+id/tvEpisodeEpisode"
             app:layout_constraintTop_toTopOf="@+id/textView19" />
@@ -86,6 +110,10 @@
             android:text="Characters:"
             android:textColor="#020000"
             android:textSize="24sp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="1.5"
+            android:shadowDy="1.5"
+            android:shadowRadius="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />
