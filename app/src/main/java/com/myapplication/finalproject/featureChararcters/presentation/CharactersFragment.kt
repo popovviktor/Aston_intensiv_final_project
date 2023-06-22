@@ -56,6 +56,7 @@ CharactersViewModel::class.java
         viewModel.characters.observe(requireActivity(), Observer {
             if (it!=null){
                 adapter.list= it.results!!
+                binding.progressNewPage.visibility = View.GONE
             }
         })
     }

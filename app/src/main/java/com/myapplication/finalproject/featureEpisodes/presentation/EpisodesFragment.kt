@@ -56,6 +56,7 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding,EpisodesViewModel>
         viewModel.episodes.observe(requireActivity(), Observer {
             if (it!=null){
                 adapterEpisode.list= it.results!!
+                binding.progressNewPageEpisode.visibility = View.GONE
             }
         })
     }

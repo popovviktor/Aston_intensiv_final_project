@@ -85,6 +85,7 @@ class DetailEpisodeFragment : BaseFragment<FragmentDetailEpisodeBinding,DetailEp
         binding.tvEpisodeEpisode.text = episode.episode
         binding.tvNameEpisode.text = episode.name
         binding.tvAirDateEpisode.text = episode.airDate
+        binding.progressNewPageDetailEpisode.visibility = View.GONE
     }
     companion object {
         @JvmStatic

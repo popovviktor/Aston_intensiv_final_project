@@ -54,6 +54,7 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding,LocationsViewMod
         viewModel.locations.observe(requireActivity(), Observer {
             if (it!=null){
                 adapterLocation.list= it.results!!
+                binding.progressBarNewPageLocation.visibility = View.GONE
             }
         })
     }

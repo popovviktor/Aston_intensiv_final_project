@@ -79,6 +79,7 @@ class DetailCharacterFragment : BaseFragment<FragmentDetailCharacterBinding,Deta
         binding.tvTypeCharacter.text = character.type
         binding.tvStatusCharacter.text = character.status
         binding.tvGenderCharacter.text = character.gender
+        binding.progressNewPageDetailCharacter.visibility = View.GONE
     }
     fun generateUrlForLoadAllEpisode():String{
         val defUrlEpisode = "https://rickandmortyapi.com/api/episode/"

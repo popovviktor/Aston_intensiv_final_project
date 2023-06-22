@@ -85,6 +85,7 @@ class DetailLocationFragment : BaseFragment<FragmentDetailLocationBinding,Detail
         binding.tvNameLocationDetail.text = location.name
         binding.tvDimensionLocationDetail.text = location.dimension
         binding.tvTypeLocationDetail.text = location.type
+        binding.progressNewPageDetailLocation.visibility = View.GONE
     }
     override fun createBinding(): FragmentDetailLocationBinding {
         return FragmentDetailLocationBinding.inflate(layoutInflater)
