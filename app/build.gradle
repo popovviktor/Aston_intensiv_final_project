@@ -39,9 +39,46 @@ android {
     buildFeatures{
         viewBinding true
     }
+    packagingOptions {
+        exclude '.readme'
+        exclude 'LICENSE.txt'
+        exclude 'fabric/*.properties'
+        // Exclude the Firebase/Fabric/other random properties files
+        exclude '/*.properties'
+        // Exclude AndroidX version files
+        exclude 'META-INF/*.version'
+        // Exclude consumer proguard files
+        exclude 'META-INF/proguard/*'
+        exclude 'META-INF/*.properties'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/NOTICE.txt'
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+        exclude 'META-INF/*.kotlin_module'
+        // for byte-buddy
+        exclude "META-INF/licenses/ASM"
+        pickFirst "win32-x86-64/attach_hotspot_windows.dll"
+        pickFirst "win32-x86/attach_hotspot_windows.dll"
+        excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        merges += "META-INF/LICENSE.md"
+        merges += "META-INF/LICENSE-notice.md"
+    }
 }
 
 dependencies {
+
+    testImplementation "io.mockk:mockk:1.13.2"
+    testImplementation 'io.kotest:kotest-runner-junit5:5.5.1'
+    testImplementation 'io.kotest:kotest-assertions-core:5.5.1'
+    implementation "io.mockk:mockk:1.13.2"
+    implementation 'io.mockk:mockk-agent-jvm:1.13.2'
+    implementation 'io.kotest:kotest-runner-junit5:5.5.1'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.0"
+
+
     implementation "androidx.fragment:fragment-ktx:1.6.0"
 
     implementation 'com.squareup.picasso:picasso:2.8'
